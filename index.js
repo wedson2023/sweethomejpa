@@ -19,17 +19,63 @@ app.use(cors())
 
 const mongoose = require('mongoose')
 
+const { Schema } = mongoose;
+
 mongoose.connect('mongodb://localhost/sweethomejpa')
     .then(() => console.log('Banco de dados mongo rodando.'))
     .catch(e => console.log(e.message));
 
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('reservas');
 });
 
-const { Schema } = mongoose;
+let schema = new Schema({
+    nome: String,
+    bairro: String,
+    hospedes: String,
+    comissao: Number
+});
 
-const schema = new Schema({
+const Anuncios = mongoose.model('anuncios', schema);
+
+app.get('/anuncios', async (req, res) => {
+
+    try {
+
+        const data = await Anuncios.aggregate([
+            { $match: {} },
+            {
+                $project: {
+                    _id: 0,
+                    nome: 1,
+                    bairro: 1,
+                    hospedes: 1,
+                    comissao: 1,
+                }
+            }
+        ]);
+
+        res.render('anuncios', { data });
+
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+app.post('/anuncios', async (req, res) => {
+
+    const { nome, bairro, hospedes, comissao } = req.body;
+
+    try {
+        await Anuncios.create({ nome, bairro, hospedes, comissao });
+    } catch (e) {
+        console.log(e);
+    }
+
+    res.json({ message: 'ok' })
+})
+
+schema = new Schema({
     nome: String,
     telefone: String,
     acomodacao: String,
@@ -45,7 +91,7 @@ app.get('/reservas', async (req, res) => {
 
     try {
 
-        const reservas = await Reservas.aggregate([
+        const data = await Reservas.aggregate([
             { $match: {} },
             {
                 $project: {
@@ -60,14 +106,15 @@ app.get('/reservas', async (req, res) => {
                 }
             }
         ]);
-        
-        res.json(reservas)
+
+        res.render('reservas', { data });
+
     } catch (e) {
         console.log(e);
     }
 })
 
-app.post('/cadastrar', async (req, res) => {
+app.post('/reservas', async (req, res) => {
 
     const { nome, telefone, acomodacao, preco, check_in, check_out, hospedes } = req.body;
 

@@ -70,10 +70,6 @@ div.menu .nav-header {
     padding-left: 10px;
 }
 
-div.menu .span.title {
-    text-align: center;
-}
-
 div.menu .nav-header .material-icons {   
     color: red;
     font-size: 20px;
@@ -83,7 +79,7 @@ div.menu .nav-header .material-icons {
     cursor: pointer;
 }
 
-div.menu .item-menu {            
+div.menu a {            
     color: #333;
     border-bottom: solid thin #333;
     text-decoration: none;
@@ -94,12 +90,12 @@ div.menu .item-menu {
     cursor: pointer;
 }
 
-div.menu .item-menu:hover {            
+div.menu a:hover {            
     background-color: #333;
     color: #fff;
 }
 
-div.menu .material-icons { 
+div.menu a .material-icons { 
     margin-right: 10px;
     font-size: 1.3em;
 }

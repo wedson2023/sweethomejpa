@@ -4,11 +4,11 @@
 
 <div class="modal">
     <div class="header">
-        <strong class="title">Cadastrar reserva</strong>
+        <strong class="title">Cadastrar reservas</strong>
         <span class="material-icons close-modal">close</span>
     </div>
     <div class="content">
-        <form class="cadastro-reserva">
+        <form class="cadastro-reservas">
             <label>
                 <span>Nome</span>
                 <input name="nome" required value="Wedson Santos" />
@@ -49,6 +49,41 @@
         </form>
     </div>
 </div>
+
+<table>
+    <thead>
+        <tr>
+            <td>NOME</td>
+            <td>TELEFONE</td>
+            <td>ACOMODAÇÃO</td>
+            <td>PREÇO</td>
+            <td>CHECK-IN</td>
+            <td>CHECK-OUT</td>
+            <td>HOSPEDES</td>
+            <td>DIAS</td>
+            <td>DIAS CHECK-IN</td>
+            <td>DIAS CHECK-OUT</td>
+            <td>LIMPEZA</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{nome}}</td>
+            <td>{{telefone}}</td>
+            <td>{{acomodacao}}</td>
+            <td>{{preco}}</td>
+            <td>{{check_in}}</td>
+            <td>{{check_out}}</td>
+            <td>{{hospedes}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 
 <script>
 

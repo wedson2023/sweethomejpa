@@ -2,8 +2,6 @@ const { innerWidth } = window;
 
 const screen = document.querySelector('.screen');
 
-const cadastro_reserva = document.querySelector('.cadastro-reserva');
-
 const menu = document.querySelector('.menu');
 const open_menu = document.querySelector('.open-menu');
 const close_menu = document.querySelector('.close-menu');
@@ -35,6 +33,12 @@ function fn_open_modal() {
         top: ${innerWidth <= 900 ? 0 : '50%'};
         margin-top: -${innerWidth <= 900 ? 0 : (modal.offsetHeight / 2)}px;
     `
+    
+    const cadastro_reservas = document.querySelector('.cadastro-reservas');
+    const cadastro_anuncios = document.querySelector('.cadastro-anuncios');    
+
+    cadastro_reservas?.addEventListener('submit', fn_cadastro_reservas);
+    cadastro_anuncios?.addEventListener('submit', fn_cadastro_anuncios);
 }
 
 function fn_close_modal() {
@@ -51,14 +55,12 @@ open_modal.addEventListener('click', fn_open_modal)
 close_menu.addEventListener('click', fn_close_menu)
 close_modal.addEventListener('click', fn_close_modal)
 
-cadastro_reserva.addEventListener('submit', fn_cadastro_reserva);
-
 screen.addEventListener('click', () => {
     fn_close_menu();
     fn_close_modal();
 })
 
-function fn_cadastro_reserva(e) {
+function fn_cadastro_reservas(e) {
 
     e.preventDefault();
 
@@ -73,7 +75,7 @@ function fn_cadastro_reserva(e) {
 
     }
 
-    fetch('http://localhost:3000/cadastrar', {
+    fetch('http://localhost:3000/reservas', {
         method: 'POST',
         headers: { 'Content-type': 'application/json;charset=UTF-8' },
         body: JSON.stringify(data)
@@ -81,10 +83,39 @@ function fn_cadastro_reserva(e) {
         .then(response => response.json())
         .then(json => {
             console.log(json)
-            close_modal();
+            fn_close_modal();
         })
         .catch(err => console.log(err));
 }
+
+function fn_cadastro_anuncios(e) {
+
+    e.preventDefault();
+
+    let data = {};
+
+    for (let i = 0; i < e.target.elements.length; i++) {
+        let name = e.target.elements[i].name;
+        let value = e.target.elements[i].value;
+
+        if (name)
+            data[name] = value;
+
+    }
+
+    fetch('http://localhost:3000/anuncios', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json;charset=UTF-8' },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+            fn_close_modal();
+        })
+        .catch(err => console.log(err));
+}
+
 
 
 

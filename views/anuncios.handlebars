@@ -1,0 +1,62 @@
+<button class="open-modal">Novo anúnico</button>
+
+<div class="title">LISTA DE ANÚNCIOS</div>
+
+<div class="modal">
+    <div class="header">
+        <strong class="title">Cadastrar anúncios</strong>
+        <span class="material-icons close-modal">close</span>
+    </div>
+    <div class="content">
+        <form class="cadastro-anuncios">
+            <label>
+                <span>Nome</span>
+                <input name="nome" required value="Apartamento amplo proximo a praia do Bessa." />
+            </label>
+            <label>
+                <span>Bairro</span>
+                <select name="bairro">
+                    <option value="Altiplano">Altiplano</option>
+                    <option value="Bancários">Bancários</option>
+                    <option value="Bessa">Bessa</option>
+                    <option selected value="Cabo Branco">Cabo Branco</option>
+                    <option value="Manaira">Manaira</option>
+                    <option value="Portal do Sol">Portal do Sol</option>
+                    <option value="Tambaú">Tambaú</option>
+                </select>
+            </label>
+            <label>
+                <span>Hospedes</span>
+                <input name="hospedes" type="number" value="4" required />
+            </label>
+            <label>
+                <span>Comissão</span>
+                <input name="comissao" type="number" value="20" required />
+            </label>
+            <label>
+                <button>Cadastrar</button>
+            </label>
+        </form>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <td>NOME</td>
+            <td>BAIRRO</td>
+            <td>HOSPEDES</td>
+            <td>COMISSÃO</td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{nome}}</td>
+            <td>{{bairro}}</td>
+            <td>{{hospedes}}</td>
+            <td>{{comissao}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
