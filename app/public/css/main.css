@@ -1,0 +1,105 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    overflow: hidden;
+}
+
+div.screen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 125;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    transition-duration: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+div.header {
+    width: 100%;
+    padding: 10px 15px;
+    border-bottom: solid thin #f1f1f1;   
+    display: flex;         
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.header img {
+    width: 35px;
+}
+
+div.header .material-icons {
+    cursor: pointer;
+    user-select: none;
+}
+
+div.menu {
+    width: 20%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0,0,0);
+    padding-bottom: 100px;
+    
+    position: absolute;
+    z-index: 150;
+    right: -250px;
+    top: 0;
+    width: 250px;
+    transition-duration: 0.3s;
+    height: 100vh;
+    user-select: none;
+}
+
+div.menu .nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    background: #222;
+    text-align: center;
+    color: #fff;
+    padding-left: 10px;
+}
+
+div.menu .span.title {
+    text-align: center;
+}
+
+div.menu .nav-header .material-icons {   
+    color: red;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 2em;
+    border: solid 2x red;
+    cursor: pointer;
+}
+
+div.menu .item-menu {            
+    color: #333;
+    border-bottom: solid thin #333;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 0.85em;
+    cursor: pointer;
+}
+
+div.menu .item-menu:hover {            
+    background-color: #333;
+    color: #fff;
+}
+
+div.menu .material-icons { 
+    margin-right: 10px;
+    font-size: 1.3em;
+}

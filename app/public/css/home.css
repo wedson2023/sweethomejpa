@@ -1,0 +1,51 @@
+button.open-modal {
+    width: 150px;
+    padding: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: block;
+    text-align: center;
+    margin: 15px auto;
+    background-color: #305496;
+    color: #fff;
+    cursor: pointer;
+}
+
+div.title {
+    background-color: #305496;
+    font-size: 14px;
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    border-top: solid 1px #666;
+    border-left: solid 1px #666;
+    border-right: solid 1px #666;
+}
+
+table {
+    width: 100%;
+    border: solid thin #666;
+    border-spacing: 0;
+}
+
+table thead td {
+    background-color: #e7e6e6;
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 13px;
+    text-align: center;
+    width: 32px;
+    font-weight: bold;
+    padding: 10px 0;
+    border: solid thin #666;
+}
+
+table tbody td {
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 13px;
+    text-align: center;
+    width: 32px;
+    font-weight: bold;
+    padding: 10px 0;
+    border: solid thin #666;
+}
