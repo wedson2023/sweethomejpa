@@ -1,5 +1,34 @@
 <button class="open-modal">Novo anúnico</button>
 
+<div class="filter">
+    <label>
+        <span>Hospede</span>
+        <input placeholder="Digite o nome do hospede." />
+    </label>
+    <label>
+        <span>Acomodação</span>
+        <select name="acomodacao">
+            <option value="">Selecione uma acomodação</option>
+            <option selected value="Simple Flat super agradável">Simple Flat super agradável</option>
+            <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
+                Bessa</option>
+            <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+        </select>
+    </label>
+    <label>
+        <span>Check-in</span>
+        <input name="check_in" type="datetime-local" value="2025-02-19 14:00:00" required />
+    </label>
+    <label>
+        <span>Check-in</span>
+        <input name="check_out" type="datetime-local" value="2025-02-19 14:00:00" required />
+    </label>
+    <label title="Clique para pesquisar acomodações livre para reservas.">
+        <span>&nbsp;</span>
+        <button>Pesquisar</button>
+    </label>
+</div>
+
 <div class="title">LISTA DE ANÚNCIOS</div>
 
 <div class="modal">

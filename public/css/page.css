@@ -49,3 +49,60 @@ table tbody td {
     padding: 10px 0;
     border: solid thin #666;
 }
+
+div.filter {
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+div.filter label {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 5px;
+}
+
+div.filter input,
+select {
+    padding: 12px 10px;
+    outline: none;
+    border: solid thin #ccc;
+}
+
+div.filter select,
+input[type=datetime-local] {
+    padding: 11px 10px !important;
+    outline: none;
+    border: solid thin #ccc;
+}
+
+div.filter span {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+div.filter button {
+
+    outline: none;
+    background-color: #000;
+    border: solid thin #000;
+    font-weight: 500;
+    color: #fff;
+    height: 41px;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.filter button:hover {
+    background-color: #fff;
+    border: solid thin #000;
+    color: #000;
+}
