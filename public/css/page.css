@@ -1,3 +1,28 @@
+td.Pendente {
+    background-color: #ffc000;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+td.Feita {
+    background-color: #00b050;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+td.Estádia.em.andamento {
+    background-color: #00b050;
+    color: #fff;
+}
+
+td.Estádia.encerrada {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+
 button.open-modal {
     width: 150px;
     padding: 10px;
@@ -18,14 +43,21 @@ div.title {
     text-align: center;
     color: #fff;
     width: 100%;
-    border-top: solid 1px #666;
-    border-left: solid 1px #666;
-    border-right: solid 1px #666;
+    border-top: solid 1px #333;
+    border-left: solid 1px #333;
+    border-right: solid 1px #333;
+}
+
+div.list {
+    height: calc(100vh - 290px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
 }
 
 table {
     width: 100%;
-    border: solid thin #666;
+    border: solid thin #333;
     border-spacing: 0;
 }
 
@@ -34,58 +66,66 @@ table thead td {
     font-family: Calibri, 'Trebuchet MS', sans-serif;
     font-size: 13px;
     text-align: center;
-    width: 32px;
     font-weight: bold;
     padding: 10px 0;
-    border: solid thin #666;
+    border: solid thin #333;
 }
 
 table tbody td {
     font-family: Calibri, 'Trebuchet MS', sans-serif;
     font-size: 13px;
     text-align: center;
-    width: 32px;
     font-weight: bold;
-    padding: 10px 0;
-    border: solid thin #666;
+    padding: 7px 0;
+    border: solid thin #333;
 }
 
-div.filter {
+table tbody span {
+    font-size: 20pt;
+    cursor: pointer;
+}
+
+table tbody a {
+    font-family: calibri;
+    color: blue;
+}
+
+form.pesquisar-reservas {
     padding: 10px 0;
     width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-div.filter label {
+form.pesquisar-reservas label {
     display: flex;
     flex-direction: column;
     flex: 1;
     margin: 5px;
 }
 
-div.filter input,
+form.pesquisar-reservas input,
 select {
     padding: 12px 10px;
     outline: none;
     border: solid thin #ccc;
 }
 
-div.filter select,
+form.pesquisar-reservas select,
 input[type=datetime-local] {
     padding: 11px 10px !important;
     outline: none;
     border: solid thin #ccc;
 }
 
-div.filter span {
+form.pesquisar-reservas span {
     color: #666;
     font-size: 0.9em;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-div.filter button {
+form.pesquisar-reservas button {
 
     outline: none;
     background-color: #000;
@@ -101,7 +141,7 @@ div.filter button {
     justify-content: center;
 }
 
-div.filter button:hover {
+form.pesquisar-reservas button:hover {
     background-color: #fff;
     border: solid thin #000;
     color: #000;

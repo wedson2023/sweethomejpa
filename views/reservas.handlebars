@@ -1,23 +1,33 @@
 <button class="open-modal">Nova reserva</button>
 
-<div class="filter">
+<form class="pesquisar-reservas">
     <label>
-        <span>Nome</span>
-        <input type="number" placeholder="Quantidade hospedes." />
+        <span>Nome hospede</span>
+        <input name="nome" placeholder="Digite o nome do hospede." />
+    </label>
+    <label>
+        <span>Acomodação</span>
+        <select name="acomodacao">
+            <option value="">Selecione uma acomodação</option>
+            <option value="Simple Flat super agradável">Simple Flat super agradável</option>
+            <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
+                Bessa</option>
+            <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+        </select>
     </label>
     <label>
         <span>Check-in</span>
-        <input name="check_in" type="datetime-local" value="2025-02-19 14:00:00" required />
+        <input name="start" type="datetime-local" value="2025-02-19 14:00:00" required />
     </label>
     <label>
         <span>Check-in</span>
-        <input name="check_out" type="datetime-local" value="2025-02-19 14:00:00" required />
+        <input name="end" type="datetime-local" value="2025-02-19 14:00:00" required />
     </label>
     <label title="Clique para pesquisar acomodações livre para reservas.">
         <span>&nbsp;</span>
         <button>Pesquisar</button>
     </label>
-</div>
+</form>
 
 
 <div class="title">LISTA DE RESERVAS</div>
@@ -64,52 +74,133 @@
                 <input name="hospedes" type="number" value="6" required />
             </label>
             <label>
+                <span>&nbsp;</span>
                 <button>Cadastrar</button>
             </label>
         </form>
     </div>
 </div>
 
-<table>
-    <thead>
-        <tr>
-            <td>NOME</td>
-            <td>TELEFONE</td>
-            <td>ACOMODAÇÃO</td>
-            <td>PREÇO</td>
-            <td>CHECK-IN</td>
-            <td>CHECK-OUT</td>
-            <td>HOSPEDES</td>
-            <td>DIAS</td>
-            <td>DIAS CHECK-IN</td>
-            <td>DIAS CHECK-OUT</td>
-            <td>LIMPEZA</td>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each data}}
-        <tr>
-            <td>{{nome}}</td>
-            <td>{{telefone}}</td>
-            <td>{{acomodacao}}</td>
-            <td>{{preco}}</td>
-            <td>{{check_in}}</td>
-            <td>{{check_out}}</td>
-            <td>{{hospedes}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+<div class="list">
+    <table>
+        <thead>
+            <tr>
+                <td width="3%"></td>
+                <td width="12%">NOME</td>
+                <td width="10%">TELEFONE</td>
+                <td width="12%">ACOMODAÇÃO</td>
+                <td width="7%">PREÇO</td>
+                <td width="7%">CHECK-IN</td>
+                <td width="7%">CHECK-OUT</td>
+                <td width="7%">HOSPEDES</td>
+                <td width="7%">DIAS</td>
+                <td width="12%">SITUAÇÃO</td>
+                <td width="12%">LIMPEZA</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td title="Clique para deletar a reserva">
+                    <span id="{{ _id }}" class="material-icons reservas">delete</span>
+                </td>
+                <td>{{nome}}</td>
+                <td>
+                    <a href="https://wa.me/55{{ telefone }}" target="_blank"
+                        title="Clique para acessar o whats app do hospede.">
+                        {{telefone}}
+                    </a>
+                </td>
+                </td>
+                <td>{{acomodacao}}</td>
+                <td>{{preco}}</td>
+                <td>{{check_in}}</td>
+                <td>{{check_out}}</td>
+                <td>{{hospedes}}</td>
+                <td>{{dias}}</td>
+                <td class="{{ situacao }}">{{situacao}}</td>
+                <td id="{{ _id }}" class="{{ limpeza }} limpeza" situacao="{{ limpeza }}"
+                    title="Clique para alterar a status de limpeza.">
+                    {{limpeza}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
 
+
+{{!--
 <script>
 
-    document.querySelector('input[name=telefone]').addEventListener('blur', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{5})(\d{4})/);
-        e.target.value = '(' + x[1] + ') ' + x[2] + '-' + x[3];
-    });
 
-</script>
+
+    try {
+
+        let data = await fetch('http://localhost:3000/api/reservas')
+        data = await data.json();
+
+        let tbody = document.querySelector('tbody');
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+
+        for (let i in data) {
+
+            let span = document.createElement('span');
+            span.innerText = 'delete';
+            span.setAttribute('class', 'material-icons');
+            span.setAttribute('id', data[0]._id);
+
+            td.appendChild(span);
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].nome;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].telefone;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].acomodacao;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].preco;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].check_in;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].check_out;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].hospedes;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].dias;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].situacao;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data[0].limpeza;
+            td.setAttribute('class', 'limpeza');
+            td.setAttribute('class', data[0].limpeza);
+            tr.appendChild(td);
+
+            tbody.appendChild(tr);
+
+            fn_close_modal();
+
+        } catch (e) {
+            alert(e);
+        }
+
+</script> --}}
