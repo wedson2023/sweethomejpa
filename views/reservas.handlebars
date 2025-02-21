@@ -41,17 +41,17 @@
         <form class="cadastro-reservas">
             <label>
                 <span>Nome</span>
-                <input name="nome" required value="Wedson Santos" />
+                <input name="nome" required value="Wedson Santos" placeholder="Ex.: Wedson Santos" />
             </label>
             <label>
                 <span>Telefone</span>
-                <input name="telefone" type="tel" value="(82) 98176 - 1793" />
+                <input name="telefone" type="tel" value="(82) 98176 - 1793" placeholder="Ex.: 82 98176 - 1793" />
             </label>
             <label>
                 <span>Acomodação</span>
-                <select name="acomodacao">
+                <select name="acomodacao" required>
                     <option value="">Selecione uma acomodação</option>
-                    <option selected value="Simple Flat super agradável">Simple Flat super agradável</option>
+                    <option value="Simple Flat super agradável">Simple Flat super agradável</option>
                     <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
                         Bessa</option>
                     <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
@@ -59,19 +59,19 @@
             </label>
             <label>
                 <span>Valor estádia</span>
-                <input name="preco" type="number" value="1000" required />
+                <input name="preco" type="number" value="1000" required placeholder="Ex.: 1000"/>
             </label>
             <label>
                 <span>Check-in</span>
-                <input name="check_in" type="datetime-local" value="2025-02-19 14:00:00" required />
+                <input name="check_in" type="datetime-local" required />
             </label>
             <label>
                 <span>Check-in</span>
-                <input name="check_out" type="datetime-local" value="2025-02-19 14:00:00" required />
+                <input name="check_out" type="datetime-local" required />
             </label>
             <label>
                 <span>Hospedes</span>
-                <input name="hospedes" type="number" value="6" required />
+                <input name="hospedes" type="number" value="6" required placeholder="Ex.: 6"/>
             </label>
             <label>
                 <span>&nbsp;</span>
@@ -80,7 +80,6 @@
         </form>
     </div>
 </div>
-
 <div class="list">
     <table>
         <thead>
@@ -126,81 +125,6 @@
             {{/each}}
         </tbody>
     </table>
+    <p class="message">Nenhuma reserva cadastrada.</p>
 </div>
-
-
-{{!--
-<script>
-
-
-
-    try {
-
-        let data = await fetch('http://localhost:3000/api/reservas')
-        data = await data.json();
-
-        let tbody = document.querySelector('tbody');
-        let tr = document.createElement('tr');
-        let td = document.createElement('td');
-
-        for (let i in data) {
-
-            let span = document.createElement('span');
-            span.innerText = 'delete';
-            span.setAttribute('class', 'material-icons');
-            span.setAttribute('id', data[0]._id);
-
-            td.appendChild(span);
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].nome;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].telefone;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].acomodacao;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].preco;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].check_in;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].check_out;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].hospedes;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].dias;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].situacao;
-            tr.appendChild(td);
-
-            td = document.createElement('td');
-            td.innerText = data[0].limpeza;
-            td.setAttribute('class', 'limpeza');
-            td.setAttribute('class', data[0].limpeza);
-            tr.appendChild(td);
-
-            tbody.appendChild(tr);
-
-            fn_close_modal();
-
-        } catch (e) {
-            alert(e);
-        }
-
-</script> --}}
+<script src="/js/reservas.js"></script>
