@@ -1,3 +1,18 @@
+const message = document.querySelector('p.message');
+let count = document.querySelectorAll('tbody tr').length;
+
+if (!count) {
+    message.style.cssText = `
+        display: block;
+    `;
+}
+
+let date = document.querySelector('input[name=check_in]');
+date.value = moment().format('YYYY-MM-DD 14:00:00')
+
+date = document.querySelector('input[name=check_out]');
+date.value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00')
+
 function fn_open_modal() {
 
     screen.style.opacity = 1;
@@ -13,6 +28,12 @@ function fn_open_modal() {
     const cadastro_anuncios = document.querySelector('.cadastro-anuncios');
 
     cadastro_anuncios?.addEventListener('submit', fn_cadastro_anuncios);
+
+    let date = document.querySelector('input[name=check_in]');
+    date.value = moment().format('YYYY-MM-DD 14:00:00')
+
+    date = document.querySelector('input[name=check_out]');
+    date.value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00')
 }
 
 const pesquisar_anuncios = document.querySelector('.pesquisar-anuncios');
@@ -26,6 +47,8 @@ function fn_close_modal() {
     modal.style.opacity = 0;
     modal.style.visibility = 'hidden';
 }
+
+let loading = {};
 
 document.querySelectorAll('td span.anuncios').forEach(e => {
 
@@ -135,39 +158,17 @@ async function fn_remover_anuncios(_id) {
             return false;
         }
 
-        fn_registros_anuncios(data);
-
-        fn_close_modal();
-
-    } catch (err) {
-        toast(err.message)
-    }
-}
-
-async function fn_situacao_limpeza(e, _id) {
-
-    try {
-
-        const limpeza = e.getAttribute('situacao');
-
-        let data = await fetch(`http://localhost:3000/api/anuncios/${_id}`, {
-            method: 'PUT',
-            headers: { 'Content-type': 'application/json;charset=UTF-8' },
-            body: JSON.stringify({ limpeza })
-        })
-
-        data = await data.json();
-
-        if (data.message) {
-            toast(data.message)
-            return false;
-        }
+        document.querySelector('form.pesquisar-anuncios input[name=hospedes]').value = '';
+        document.querySelector('form.pesquisar-anuncios select[name=bairro]').value = '';
+        document.querySelector('form.pesquisar-anuncios input[name=check_in]').value = moment().format('YYYY-MM-DD 14:00:00');
+        document.querySelector('form.pesquisar-anuncios input[name=check_out]').value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00');
 
         fn_registros_anuncios(data);
 
         fn_close_modal();
 
     } catch (err) {
+        console.log(err);
         toast(err.message)
     }
 }
@@ -199,28 +200,7 @@ function fn_registros_anuncios(data) {
         tr.appendChild(td);
 
         td = document.createElement('td');
-        a.setAttribute('href', `https://wa.me/55${data[i].telefone}`)
-        a.setAttribute('target', `_blank`)
-        a.setAttribute('title', `Clique para acessar o whats app do hospede.`)
-        a.innerText = data[i].telefone;
-
-        td.appendChild(a);
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        td.innerText = data[i].acomodacao;
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        td.innerText = data[i].preco;
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        td.innerText = data[i].check_in;
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        td.innerText = data[i].check_out;
+        td.innerText = data[i].bairro;
         tr.appendChild(td);
 
         td = document.createElement('td');
@@ -228,24 +208,23 @@ function fn_registros_anuncios(data) {
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerText = data[i].dias;
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        td.innerText = data[i].situacao;
-        td.setAttribute('class', data[i].situacao);
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        td.innerText = data[i].limpeza;
-        td.setAttribute('id', data[i]._id);
-        td.setAttribute('class', 'limpeza');
-        td.setAttribute('situacao', data[i].limpeza);
-        td.classList.add(data[i].limpeza);
+        td.innerText = data[i].comissao;
         tr.appendChild(td);
 
         tbody.appendChild(tr);
 
+    }
+
+    count = document.querySelectorAll('tbody tr').length;
+
+    if (!count) {
+        message.style.cssText = `
+            display: block;
+        `;
+    } else {
+        message.style.cssText = `
+            display: none;
+        `;
     }
 
     document.querySelectorAll('td span.anuncios').forEach(e => {
@@ -267,21 +246,6 @@ function fn_registros_anuncios(data) {
 
                 }
 
-            }
-        })
-    });
-
-    document.querySelectorAll('td.limpeza').forEach(e => {
-
-        const _id = e.getAttribute('id');
-
-        loading[_id] = false;
-
-        e.addEventListener('click', () => {
-            if (!loading[_id]) {
-                loading[_id] = true
-                fn_situacao_limpeza(e, _id);
-                loading[_id] = false
             }
         })
     });

@@ -1,0 +1,60 @@
+div.contatos {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+div.contatos div {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    margin: 15px 5px;
+}
+
+div.contatos a {
+    text-decoration: none;
+    color: #004e77;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+div.contatos span {
+    text-decoration: none;
+    margin-right: 10px;
+    color: #fe3a79;
+    font-size: 20px;
+}
+
+
+
+img {
+    display: block;
+    margin: 25px auto 0 auto;
+    width: 250px;
+}
+
+p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: block;
+    text-align: center;
+    margin: 0 auto 25px auto;
+    width: 80%;
+    color: #333;
+}
+
+a.open-modal {
+    width: 150px;
+    padding: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: block;
+    text-align: center;
+    margin: 15px auto;
+    background-color: #004e77;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9em;
+}

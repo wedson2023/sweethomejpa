@@ -22,7 +22,6 @@ td.Estádia.encerrada {
     color: #fff;
 }
 
-
 button.open-modal {
     width: 150px;
     padding: 10px;
@@ -90,14 +89,16 @@ table tbody a {
     color: blue;
 }
 
-form.pesquisar-reservas {
+form.pesquisar-reservas,
+form.pesquisar-anuncios {
     padding: 10px 0;
     width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-form.pesquisar-reservas label {
+form.pesquisar-reservas label,
+form.pesquisar-anuncios label {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -107,22 +108,24 @@ form.pesquisar-reservas label {
 @media screen and (max-width:900px) {
 
     div.list {
-        width: 100%;  
-        overflow-x: auto;  
+        width: 100%;
+        overflow-x: auto;
     }
-    
+
     table {
         width: 1336px;
     }
 
-    form.pesquisar-reservas {
+    form.pesquisar-reservas,
+    form.pesquisar-anuncios {
         padding: 10px 0;
         width: 100%;
         display: flex;
         flex-direction: column;
     }
-    
-    form.pesquisar-reservas label {
+
+    form.pesquisar-reservas label,
+    form.pesquisar-anuncios label {
         display: flex;
         flex-direction: column;
         flex: 1;
@@ -131,27 +134,33 @@ form.pesquisar-reservas label {
 }
 
 form.pesquisar-reservas input,
-select {
+form.pesquisar-reservas select,
+form.pesquisar-anuncios input,
+form.pesquisar-reservas select {
     padding: 12px 10px;
     outline: none;
     border: solid thin #ccc;
 }
 
 form.pesquisar-reservas select,
-input[type=datetime-local] {
+form.pesquisar-reservas input[type=datetime-local],
+form.pesquisar-anuncios select,
+form.pesquisar-anuncios input[type=datetime-local] {
     padding: 11px 10px !important;
     outline: none;
     border: solid thin #ccc;
 }
 
-form.pesquisar-reservas span {
+form.pesquisar-reservas span,
+form.pesquisar-anuncios span {
     color: #666;
     font-size: 0.9em;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-form.pesquisar-reservas button {
+form.pesquisar-reservas button,
+form.pesquisar-anuncios button {
 
     outline: none;
     background-color: #000;
@@ -167,7 +176,8 @@ form.pesquisar-reservas button {
     justify-content: center;
 }
 
-form.pesquisar-reservas button:hover {
+form.pesquisar-reservas button:hover,
+form.pesquisar-anuncios button:hover {
     background-color: #fff;
     border: solid thin #000;
     color: #000;
