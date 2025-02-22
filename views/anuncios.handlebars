@@ -64,6 +64,18 @@
                 <input name="hospedes" type="number" placeholder="Ex.: 6" required />
             </label>
             <label>
+                <span>Proprietario</span>
+                <input name="proprietario" placeholder="Ex.: Adriana" required />
+            </label>
+            <label>
+                <span>Pix</span>
+                <input name="pix" placeholder="Ex.: 82981761793" required />
+            </label>
+            <label>
+                <span>Link</span>
+                <input name="url" placeholder="Ex.: https://www.airbnb.com.br/rooms/1255592429323069919" required />
+            </label>
+            <label>
                 <span>Comissão</span>
                 <input name="comissao" type="number" placeholder="Ex.: 20" required />
             </label>
@@ -79,10 +91,13 @@
         <thead>
             <tr>
                 <td width="3%"></td>
-                <td>NOME</td>
-                <td>BAIRRO</td>
-                <td>HOSPEDES</td>
-                <td>COMISSÃO</td>
+                <td width="25%">NOME</td>
+                <td width="12%">BAIRRO</td>
+                <td width="10%">HOSPEDES</td>
+                <td width="17%">PROPRIETÁRIO</td>
+                <td width="20%">PIX</td>
+                <td width="10%">COMISSÃO</td>
+                <td width="3%"></td>
             </tr>
         </thead>
         <tbody>
@@ -94,7 +109,12 @@
                 <td>{{nome}}</td>
                 <td>{{bairro}}</td>
                 <td>{{hospedes}}</td>
+                <td>{{proprietario}}</td>
+                <td>{{pix}}</td>
                 <td>{{comissao}}</td>
+                <td>
+                    <span title="Clique para copiar o link da própriedade" url="{{ url }}" class="material-icons copy">content_copy</span>
+                </td>
             </tr>
             {{/each}}
         </tbody>

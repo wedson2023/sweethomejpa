@@ -13,6 +13,7 @@ router.get('/reservas', reservas.index);
 router.post('/reservas', reservas.store);
 router.put('/reservas/:id', reservas.update);
 router.delete('/reservas/:id', reservas.destroy);
+router.post('/situacao', reservas.situacao);
 
 router.get('/anuncios', anuncios.index);
 router.post('/anuncios', anuncios.store);

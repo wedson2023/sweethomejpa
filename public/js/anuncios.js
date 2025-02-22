@@ -73,6 +73,20 @@ document.querySelectorAll('td span.anuncios').forEach(e => {
     })
 });
 
+document.querySelectorAll('.copy').forEach(e => {
+    e.addEventListener('click', () => {
+        const value = e.getAttribute('url');
+        console.log(value);
+        let input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.value = value;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+    })
+})
+
 async function fn_pesquisar_anuncios(e) {
 
     e.preventDefault();
@@ -120,6 +134,8 @@ async function fn_cadastro_anuncios(e) {
 
         if (name)
             data[name] = value;
+
+        e.target.elements[i].value = '';
     }
 
     try {
@@ -208,7 +224,25 @@ function fn_registros_anuncios(data) {
         tr.appendChild(td);
 
         td = document.createElement('td');
+        td.innerText = data[i].proprietario;
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.innerText = data[i].pix;
+        tr.appendChild(td);
+
+        td = document.createElement('td');
         td.innerText = data[i].comissao;
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.setAttribute('title', 'Clique para copiar o link da própriedade')
+        span = document.createElement('span');
+        span.innerText = 'content_copy';
+        span.setAttribute('class', 'material-icons');
+        span.classList.add('copy');
+
+        td.appendChild(span);
         tr.appendChild(td);
 
         tbody.appendChild(tr);

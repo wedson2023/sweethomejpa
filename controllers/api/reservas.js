@@ -5,6 +5,8 @@ const reservas = require('../../models/reservas');
 
 exports.index = async (req, res) => {
 
+    let query = {}
+
     if (Object.values(req.query).length) {
 
         query = {
@@ -47,8 +49,8 @@ exports.index = async (req, res) => {
 
         res.json(data);
 
-    } catch (e) {
-        console.log(e);
+    } catch ({ message }) {
+        res.status(400).json({ message })
     }
 }
 
@@ -62,13 +64,15 @@ exports.store = async (req, res) => {
 
         check_out = moment(check_out)
 
-        const dias = check_out.diff(check_in, 'days');
+        const dias = check_out.diff(moment(check_in), 'days');
 
-        // const now = moment();
+        // check_in = moment(check_in).format('YYYY-MM-DD H:mm:ss');
+        // check_out = moment(check_out).format('YYYY-MM-DD H:mm:ss');
+        // const now = moment().format('YYYY-MM-DD H:mm:ss');  
 
-        check_in = moment(check_in).format('YYYY-MM-DD H:mm:ss');
-        check_out = moment(check_out).format('YYYY-MM-DD H:mm:ss');
-        const now = moment().format('YYYY-MM-DD H:mm:ss');
+        check_in = new Date(check_in);
+        check_out = new Date(check_out);
+        const now = new Date();
 
         if (check_in >= check_out) throw new Error('A data de check-in não pode ser maior ou igual ao check-out.');
 
@@ -79,6 +83,25 @@ exports.store = async (req, res) => {
         else {
             situacao = moment(check_in).diff(moment(), 'days') + ' dias';
         }
+
+        const result = await reservas.aggregate([
+            {
+                $match: {
+                    $and: [
+                        { acomodacao: { $eq: acomodacao } },
+                        {
+                            $or: [
+                                { check_out: { $gte: check_in, $lte: check_out } },
+                                { check_in: { $gte: check_in, $lte: check_out } }
+                            ]
+                        }
+                    ]
+                }
+            },
+            { $count: "count" }
+        ]);
+
+        if (result.length) throw new Error('Já existe uma reserva para esse apartamento para essa data.');
 
         await reservas.create({ nome, telefone, acomodacao, preco, check_in, check_out, hospedes, dias, situacao });
 
@@ -141,8 +164,8 @@ exports.update = async (req, res) => {
 
         res.json(data)
 
-    } catch (e) {
-        console.log(e);
+    } catch ({ message }) {
+        res.status(400).json({ message })
     }
 }
 
@@ -174,8 +197,8 @@ exports.destroy = async (req, res) => {
 
         res.json(data)
 
-    } catch (e) {
-        console.log(e);
+    } catch ({ message }) {
+        res.status(400).json({ message })
     }
 
 }
@@ -207,9 +230,9 @@ exports.situacao = async (req, res) => {
 
         for (let i in data) {
 
-            const check_in = moment(data[i].check_in).format('YYYY-MM-DD H:mm:ss');
-            const check_out = moment(data[i].check_out).format('YYYY-MM-DD H:mm:ss');
-            const now = moment().format('YYYY-MM-DD H:mm:ss');
+            const check_in = new Date(data[i].check_in);
+            const check_out = new Date(data[i].check_out);
+            const now = new Date();
 
             let object;
 
@@ -225,8 +248,8 @@ exports.situacao = async (req, res) => {
 
         res.json({ data })
 
-    } catch (e) {
-        console.log(e);
+    } catch ({ message }) {
+        res.status(400).json({ message })
     }
 
 }

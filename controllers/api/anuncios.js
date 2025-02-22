@@ -2,24 +2,44 @@ const moment = require('moment')
 
 // models 
 const anuncios = require('../../models/anuncios');
+const reservas = require('../../models/reservas');
 
 exports.index = async (req, res) => {
+
+    let query = {}
 
     if (Object.values(req.query).length) {
 
         query = {
-            $and: [
-                { check_in: { $gte: new Date(moment().subtract(1, 'month')) } },
-                {
-                    check_in: {
-                        $gte: new Date(req.query.start), $lte: new Date(req.query.end)
-                    }
-                }
-            ]
+            $and: [{ nome: { $nin: [] } }]
         }
 
-        if (req.query.acomodacao) query.$and.push({ acomodacao: req.query.acomodacao })
-        if (req.query.nome) query.$and.push({ nome: { $regex: req.query.nome, $options: 'i' } })
+        let check_in = new Date(req.query.check_in);
+        let check_out = new Date(req.query.check_out);
+
+        const result = await reservas.aggregate([
+            {
+                $match: {
+                    $and: [
+                        {
+                            $or: [
+                                { check_out: { $gte: check_in, $lte: check_out } },
+                                { check_in: { $gte: check_in, $lte: check_out } }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]);
+
+        if (result.length) {
+            const nome = result.map(e => e.acomodacao);
+            query.$and.push({ nome: { $nin: nome } })
+        }
+
+        if (req.query.bairro) query.$and.push({ bairro: req.query.bairro })
+        if (req.query.hospedes) query.$and.push({ hospedes: { $gte: req.query.hospedes } })
+
     }
 
     try {
@@ -34,7 +54,10 @@ exports.index = async (req, res) => {
                     nome: 1,
                     bairro: 1,
                     hospedes: 1,
-                    comissao: 1
+                    proprietario: 1,
+                    pix: 1,
+                    comissao: 1,
+                    url: 1,
                 }
             },
             { $sort: { nome: 1 } }
@@ -51,9 +74,9 @@ exports.store = async (req, res) => {
 
     try {
 
-        let { nome, bairro, hospedes, comissao } = req.body;
+        let { nome, bairro, hospedes, proprietario, pix, comissao } = req.body;
 
-        await anuncios.create({ nome, bairro, hospedes, comissao });
+        await anuncios.create({ nome, bairro, hospedes, proprietario, pix, comissao });
 
         const data = await anuncios.aggregate([
             { $match: {} },
@@ -63,7 +86,10 @@ exports.store = async (req, res) => {
                     nome: 1,
                     bairro: 1,
                     hospedes: 1,
-                    comissao: 1
+                    proprietario: 1,
+                    pix: 1,
+                    comissao: 1,
+                    url: 1,
                 }
             },
             { $sort: { nome: 1 } }
@@ -95,7 +121,10 @@ exports.destroy = async (req, res) => {
                     nome: 1,
                     bairro: 1,
                     hospedes: 1,
-                    comissao: 1
+                    proprietario: 1,
+                    pix: 1,
+                    comissao: 1,
+                    url: 1,
                 }
             },
             { $sort: { situacao: 1 } }
