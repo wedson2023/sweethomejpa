@@ -90,6 +90,7 @@ table tbody a {
 }
 
 form.pesquisar-reservas,
+form.pesquisar-despesas,
 form.pesquisar-anuncios {
     padding: 10px 0;
     width: 100%;
@@ -98,6 +99,7 @@ form.pesquisar-anuncios {
 }
 
 form.pesquisar-reservas label,
+form.pesquisar-despesas label,
 form.pesquisar-anuncios label {
     display: flex;
     flex-direction: column;
@@ -117,6 +119,7 @@ form.pesquisar-anuncios label {
     }
 
     form.pesquisar-reservas,
+    form.pesquisar-despesas,
     form.pesquisar-anuncios {
         padding: 10px 0;
         width: 100%;
@@ -125,6 +128,7 @@ form.pesquisar-anuncios label {
     }
 
     form.pesquisar-reservas label,
+    form.pesquisar-despesas label,
     form.pesquisar-anuncios label {
         display: flex;
         flex-direction: column;
@@ -135,6 +139,8 @@ form.pesquisar-anuncios label {
 
 form.pesquisar-reservas input,
 form.pesquisar-reservas select,
+form.pesquisar-despesas input,
+form.pesquisar-despesas select,
 form.pesquisar-anuncios input,
 form.pesquisar-reservas select {
     padding: 12px 10px;
@@ -144,6 +150,8 @@ form.pesquisar-reservas select {
 
 form.pesquisar-reservas select,
 form.pesquisar-reservas input[type=datetime-local],
+form.pesquisar-despesas select,
+form.pesquisar-despesas input[type=datetime-local],
 form.pesquisar-anuncios select,
 form.pesquisar-anuncios input[type=datetime-local] {
     padding: 11px 10px !important;
@@ -152,6 +160,7 @@ form.pesquisar-anuncios input[type=datetime-local] {
 }
 
 form.pesquisar-reservas span,
+form.pesquisar-despesas span,
 form.pesquisar-anuncios span {
     color: #666;
     font-size: 0.9em;
@@ -160,6 +169,7 @@ form.pesquisar-anuncios span {
 }
 
 form.pesquisar-reservas button,
+form.pesquisar-despesas button,
 form.pesquisar-anuncios button {
 
     outline: none;
@@ -177,6 +187,7 @@ form.pesquisar-anuncios button {
 }
 
 form.pesquisar-reservas button:hover,
+form.pesquisar-despesas button:hover,
 form.pesquisar-anuncios button:hover {
     background-color: #fff;
     border: solid thin #000;

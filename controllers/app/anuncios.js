@@ -23,8 +23,8 @@ exports.index = async (req, res) => {
 
         res.render('anuncios', { data });
 
-    } catch (e) {
-        console.log(e);
+    } catch ({ message }) {
+        res.status(400).json({ message })
     }
 
 }

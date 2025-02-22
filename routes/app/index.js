@@ -3,6 +3,7 @@ const router = express.Router();
 
 const reservas = require('../../controllers/app/reservas')
 const anuncios = require('../../controllers/app/anuncios')
+const despesas = require('../../controllers/app/despesas')
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
@@ -15,5 +16,6 @@ router.get('/', (req, res) => {
 });
 router.get('/reservas', reservas.index);
 router.get('/anuncios', anuncios.index);
+router.get('/despesas', despesas.index);
 
 module.exports = router

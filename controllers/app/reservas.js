@@ -33,8 +33,7 @@ exports.index = async (req, res) => {
 
         res.render('reservas', { data });
 
-    } catch (e) {
-        console.log(e);
+    } catch ({ message }) {
+        res.status(400).json({ message })
     }
-
 }

@@ -1,0 +1,89 @@
+<button class="open-modal">Nova despesa</button>
+
+<form class="pesquisar-despesas">
+    <label>
+        <span>Acomodação</span>
+        <select name="acomodacao">
+            <option value="">Selecione uma acomodação</option>
+            <option value="Simple Flat super agradável">Simple Flat super agradável</option>
+            <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
+                Bessa</option>
+            <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+        </select>
+    </label>
+    <label>
+        <span>Data Início</span>
+        <input name="inicio" type="datetime-local" required />
+    </label>
+    <label>
+        <span>Data final</span>
+        <input name="fim" type="datetime-local" required />
+    </label>
+    <label title="Clique para pesquisar .">
+        <span>&nbsp;</span>
+        <button>Pesquisar</button>
+    </label>
+</form>
+
+
+<div class="title">LISTA DE DESPESAS</div>
+
+<div class="modal">
+    <div class="header">
+        <strong class="title">Cadastrar despesas</strong>
+        <span class="material-icons close-modal">close</span>
+    </div>
+    <div class="content">
+        <form class="cadastro-despesas">
+            <label>
+                <span>Descrição</span>
+                <input name="descrição" placeholder="Ex.: Conjunto de copos" required />
+            </label>
+            <label>
+                <span>Valor</span>
+                <input name="valor" placeholder="Ex.: 20" required />
+            </label>
+            <label>
+                <span>Acomodação</span>
+                <select name="acomodacao" required>
+                    <option value="">Selecione uma acomodação</option>
+                    <option value="Simple Flat super agradável">Simple Flat super agradável</option>
+                    <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
+                        Bessa</option>
+                    <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+                </select>
+            </label>
+            <label>
+                <span>&nbsp;</span>
+                <button>Cadastrar</button>
+            </label>
+        </form>
+    </div>
+</div>
+<div class="list">
+    <table>
+        <thead>
+            <tr>
+                <td width="3%"></td>
+                <td width="33%">ACOMODAÇÃO</td>
+                <td width="33%">DESCRIÇÃO</td>
+                <td width="15.5%">VALOR</td>
+                <td width="15.5%">CRIADO EM</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td title="Clique para deletar a reserva">
+                    <span id="{{ _id }}" class="material-icons despesas">delete</span>
+                </td>
+                <td>{{descricao}}</td>
+                <td>{{acomodacao}}</td>
+                <td>{{valor}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <p class="message">Nenhuma despesa cadastrada.</p>
+</div>
+<script src="/js/despesas.js"></script>
