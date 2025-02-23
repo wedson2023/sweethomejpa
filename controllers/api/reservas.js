@@ -2,6 +2,7 @@ const moment = require('moment')
 
 // models 
 const reservas = require('../../models/reservas');
+const anuncios = require('../../models/anuncios');
 
 exports.index = async (req, res) => {
 
@@ -103,7 +104,9 @@ exports.store = async (req, res) => {
 
         if (result.length) throw new Error('Já existe uma reserva para esse apartamento para essa data.');
 
-        await reservas.create({ nome, telefone, acomodacao, preco, check_in, check_out, hospedes, dias, situacao });
+        const { comissao } = await anuncios.findOne({ nome: acomodacao });        
+
+        await reservas.create({ nome, telefone, acomodacao, preco, check_in, check_out, hospedes, dias, situacao, comissao: comissao / 100 }); 
 
         const query = { check_in: { $gte: new Date(moment().subtract(1, 'month')) } }
 

@@ -8,7 +8,7 @@ if (!count) {
 }
 
 let date = document.querySelector('input[name=inicio]');
-date.value = moment().format('YYYY-MM-DD 14:00:00')
+date.value = moment().startOf('month').format('YYYY-MM-DD 14:00:00')
 
 date = document.querySelector('input[name=fim]');
 date.value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00')
@@ -94,6 +94,11 @@ async function fn_pesquisar_despesas(e) {
             return false;
         }
 
+        document.querySelector('span.entradas').innerText = data.total.entradas;
+        document.querySelector('span.saidas').innerText = data.total.saidas;
+        document.querySelector('span.comissao').innerText = data.total.comissao;
+        document.querySelector('span.liquido').innerText = data.total.liquido;
+
         fn_registros_despesas(data);
 
     } catch (err) {
@@ -167,7 +172,7 @@ async function fn_remover_despesas(_id) {
     }
 }
 
-function fn_registros_despesas(data) {
+function fn_registros_despesas({ data }) {
 
     let tbody = document.querySelector('tbody');
     tbody.innerHTML = "";

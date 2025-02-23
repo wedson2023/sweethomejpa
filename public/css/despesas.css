@@ -1,0 +1,24 @@
+div.total {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    margin: 15px auto;
+    user-select: none;
+}
+
+div.total div {
+    flex: 1;
+    margin: 0 5px 5px 5px;
+    border-left: solid 5px #305496;
+    border-bottom: solid 2px #305496;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.total strong {
+    color: #666;
+}
+
+div.total span {}

@@ -2,30 +2,66 @@ const moment = require('moment')
 
 // models 
 const despesas = require('../../models/despesas');
+const reservas = require('../../models/reservas');
+const { amount } = require('../../utils');
 
 exports.index = async (req, res) => {
 
-    let query = {}
+    let Qdata = {}
+    let Qreserva = {}
 
     if (Object.values(req.query).length) {
 
-        {
-            query = {
-                created_at: {
-                    $gte: new Date(req.query.inicio), $lte: new Date(req.query.final)
+
+        Qdata = {
+            $and: [
+                {
+                    created_at: {
+                        $gte: new Date(req.query.inicio), $lte: new Date(req.query.fim)
+                    }
                 }
+            ]
+        }
+
+        if (req.query.acomodacao) Qdata.$and.push({ acomodacao: req.query.acomodacao })
+
+
+        Qreserva = {
+            $and: [
+                {
+                    check_in: {
+                        $gte: new Date(req.query.inicio), $lte: new Date(req.query.fim)
+                    }
+                }
+            ]
+        }
+
+        if (req.query.acomodacao) Qreserva.$and.push({ acomodacao: req.query.acomodacao })
+
+    } else {
+
+        const inicio = moment().startOf('month').format('YYYY-MM-DD 00:00:00');
+        const fim = moment().format('YYYY-MM-DD 23:59:59');
+
+        Qdata = {
+            created_at: {
+                $gte: new Date(inicio), $lte: new Date(fim)
             }
         }
 
-        if (req.query.acomodacao) query.$and.push({ acomodacao: req.query.acomodacao })
+        Qreserva = {
+            check_in: {
+                $gte: new Date(inicio), $lte: new Date(fim)
+            }
+        }
 
     }
 
     try {
 
-        const data = await despesas.aggregate([
+        let data = await despesas.aggregate([
             {
-                $match: query
+                $match: Qdata
             },
             {
                 $project: {
@@ -33,12 +69,48 @@ exports.index = async (req, res) => {
                     descricao: 1,
                     acomodacao: 1,
                     valor: 1,
-                    created_at: 1,
+                    created_at: { $dateToString: { format: "%d/%m %H:%M", date: "$created_at" } },
                     updated_at: 1
                 }
             },
             { $sort: { acomodacao: 1 } }
         ]);
+
+        const saidas = await despesas.aggregate([
+            {
+                $match: Qdata
+            },
+            {
+                $group: {
+                    _id: null,
+                    valor: { $sum: "$valor" }
+                }
+            }
+        ]);
+
+        const entradas = await reservas.aggregate([
+            {
+                $match: Qreserva
+            },
+            {
+                $group: {
+                    _id: null,
+                    preco: { $sum: "$preco" },
+                    comissao: { $sum: { $multiply: ["$preco", "$comissao"] } }
+                }
+            }
+        ]);
+
+        data =
+        {
+            data,
+            total: {
+                entradas: `R$ ${amount(entradas[0].preco)}`,
+                saidas: `R$ ${amount(saidas[0].valor)}`,
+                comissao: `R$ ${amount(entradas[0].comissao)}`,
+                liquido: `R$ ${amount(entradas[0].preco - (saidas[0].valor + entradas[0].comissao))}`
+            }
+        }
 
         res.json(data);
 
@@ -51,9 +123,9 @@ exports.store = async (req, res) => {
 
     try {
 
-        let { nome, bairro, hospedes, proprietario, pix, comissao } = req.body;
+        let { descricao, acomodacao, valor } = req.body;
 
-        await despesas.create({ nome, bairro, hospedes, proprietario, pix, comissao });
+        await despesas.create({ descricao, acomodacao, valor });
 
         const data = await despesas.aggregate([
             { $match: {} },
@@ -63,7 +135,7 @@ exports.store = async (req, res) => {
                     descricao: 1,
                     acomodacao: 1,
                     valor: 1,
-                    created_at: 1,
+                    created_at: { $dateToString: { format: "%d/%m %H:%M", date: "$created_at" } },
                     updated_at: 1
                 }
             },
@@ -96,7 +168,7 @@ exports.destroy = async (req, res) => {
                     descricao: 1,
                     acomodacao: 1,
                     valor: 1,
-                    created_at: 1,
+                    created_at: { $dateToString: { format: "%d/%m %H:%M", date: "$created_at" } },
                     updated_at: 1
                 }
             },

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/despesas.css" />
 <button class="open-modal">Nova despesa</button>
 
 <form class="pesquisar-despesas">
@@ -24,7 +25,24 @@
         <button>Pesquisar</button>
     </label>
 </form>
-
+<div class="total">
+    <div>
+        <strong>Entradas:</strong>
+        <span class="entradas">{{ total.entradas }}</span>
+    </div>
+    <div>
+        <strong>Saidas:</strong>
+        <span class="saidas">{{ total.saidas }}</span>
+    </div>
+    <div>
+        <strong>Comissão:</strong>
+        <span class="comissao">{{ total.comissao }}</span>
+    </div>
+    <div>
+        <strong>Líquido:</strong>
+        <span class="liquido">{{ total.liquido }}</span>
+    </div>
+</div>
 
 <div class="title">LISTA DE DESPESAS</div>
 
@@ -37,7 +55,7 @@
         <form class="cadastro-despesas">
             <label>
                 <span>Descrição</span>
-                <input name="descrição" placeholder="Ex.: Conjunto de copos" required />
+                <input name="descricao" placeholder="Ex.: Conjunto de copos" required />
             </label>
             <label>
                 <span>Valor</span>
@@ -80,6 +98,7 @@
                 <td>{{descricao}}</td>
                 <td>{{acomodacao}}</td>
                 <td>{{valor}}</td>
+                <td>{{created_at}}</td>
             </tr>
             {{/each}}
         </tbody>

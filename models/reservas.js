@@ -11,6 +11,7 @@ const schema = mongoose.Schema(
         hospedes: Number,
         dias: Number,
         situacao: String,
+        comissao: Number,
         limpeza: {
             type: String,
             default: 'Pendente'
