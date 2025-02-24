@@ -1,0 +1,51 @@
+div.screen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 125;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    transition-duration: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+div.modal {
+    user-select: none;
+    background-color: #fff;
+
+    width: 60%;
+    margin-left: -30%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    z-index: 150;
+    left: 50%;
+    top: 60%;
+    opacity: 0;
+    visibility: hidden;
+    transition-duration: 0.5s;
+}
+
+div.modal div.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    color: #fff;
+    padding: 10px;
+}
+
+div.modal div.header span {
+    cursor: default;
+    color: #c40808;
+    cursor: pointer;
+}
+
+div.modal div.content {
+    padding: 10px;
+    margin: 5px;
+}

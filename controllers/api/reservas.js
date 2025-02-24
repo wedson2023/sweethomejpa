@@ -65,11 +65,7 @@ exports.store = async (req, res) => {
 
         check_out = moment(check_out)
 
-        const dias = check_out.diff(moment(check_in), 'days');
-
-        // check_in = moment(check_in).format('YYYY-MM-DD H:mm:ss');
-        // check_out = moment(check_out).format('YYYY-MM-DD H:mm:ss');
-        // const now = moment().format('YYYY-MM-DD H:mm:ss');  
+        const dias = check_out.diff(moment(check_in), 'days'); 
 
         check_in = new Date(check_in);
         check_out = new Date(check_out);

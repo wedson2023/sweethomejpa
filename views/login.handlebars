@@ -7,6 +7,7 @@
     <title>Sweet home JPA</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../css/modal.css" />
     <link rel="icon" type="image/png" href="../images/favicon.png">
 </head>
 
@@ -23,7 +24,7 @@
         segura, quanto para os hóspedes, que desfrutam de acomodações confortáveis e bem cuidadas. Com atenção aos
         detalhes
         e um suporte dedicado, maximizamos a rentabilidade e a satisfação dos nossos clientes.</p>
-    <a href="/app/reservas" class="open-modal">ACESSAR</a>
+    <a href="javascript:void(0)" class="open-modal">ACESSAR</a>
 
     <div class="contatos">
         <div>
@@ -35,6 +36,29 @@
             <a href="mailto:adrianafernandes66@hotmail.com">adrianafernandes66@hotmail.com</a>
         </div>
     </div>
+
+    <div class="modal">
+        <div class="header">
+            <strong class="title">Acessar painel</strong>
+            <span class="material-icons close-modal">close</span>
+        </div>
+        <div class="content">
+            <form>
+                <label>
+                    <input name="nome" required placeholder="Seu login" />
+                </label>
+                <label>
+                    <input type="password" name="password" required placeholder="Sua senha" />
+                </label>
+                <label>
+                    <button>ACESSAR</button>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <div class="screen"></div>
+    <script src="../js/login.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,5 @@
+const token = localStorage.getItem('token');
+
 const message = document.querySelector('p.message');
 let count = document.querySelectorAll('tbody tr').length;
 
@@ -105,7 +107,12 @@ async function fn_pesquisar_anuncios(e) {
 
     try {
 
-        data = await fetch(`http://localhost:3000/api/anuncios?${query}`)
+        data = await fetch(`http://localhost:3000/api/anuncios?${query}`, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        })
 
         data = await data.json();
 
@@ -143,7 +150,10 @@ async function fn_cadastro_anuncios(e) {
         data = await fetch('http://localhost:3000/api/anuncios', {
             method: 'POST',
             headers: { 'Content-type': 'application/json;charset=UTF-8' },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
         })
 
         data = await data.json();
@@ -166,7 +176,12 @@ async function fn_remover_anuncios(_id) {
 
     try {
 
-        let data = await fetch(`http://localhost:3000/api/anuncios/${_id}`, { method: 'DELETE' })
+        let data = await fetch(`http://localhost:3000/api/anuncios/${_id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        })
         data = await data.json();
 
         if (data.message) {

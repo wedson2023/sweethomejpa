@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../css/despesas.css" />
+
 <button class="open-modal">Nova despesa</button>
 
 <form class="pesquisar-despesas">
@@ -20,9 +21,13 @@
         <span>Data final</span>
         <input name="fim" type="datetime-local" required />
     </label>
-    <label title="Clique para pesquisar .">
+    <label title="Clique para pesquisar.">
         <span>&nbsp;</span>
         <button>Pesquisar</button>
+    </label>
+    <label title="Clique para baixar o pdf.">
+        <span>&nbsp;</span>
+        <button type="button">Download</button>
     </label>
 </form>
 <div class="total">
@@ -90,7 +95,7 @@
             </tr>
         </thead>
         <tbody>
-            {{#each data}}
+            {{#each data.despesas}}
             <tr>
                 <td title="Clique para deletar a reserva">
                     <span id="{{ _id }}" class="material-icons despesas">delete</span>
