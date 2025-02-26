@@ -45,7 +45,8 @@ exports.index = async (req, res) => {
                     situacao: 1,
                     limpeza: 1,
                 }
-            }
+            },
+            { $sort: { situacao: 1 } }
         ]);
 
         res.json(data);
@@ -65,7 +66,7 @@ exports.store = async (req, res) => {
 
         check_out = moment(check_out)
 
-        const dias = check_out.diff(moment(check_in), 'days'); 
+        const dias = check_out.diff(moment(check_in), 'days') + 1;
 
         check_in = new Date(check_in);
         check_out = new Date(check_out);
@@ -78,7 +79,7 @@ exports.store = async (req, res) => {
         if (check_out <= now) situacao = 'Estádia encerrada';
         else if (check_in <= now) situacao = 'Estádia em andamento';
         else {
-            situacao = moment(check_in).diff(moment(), 'days') + ' dias';
+            situacao = moment(check_in).diff(moment(), 'days') + ' dia(s)';
         }
 
         const result = await reservas.aggregate([
@@ -100,9 +101,9 @@ exports.store = async (req, res) => {
 
         if (result.length) throw new Error('Já existe uma reserva para esse apartamento para essa data.');
 
-        const { comissao } = await anuncios.findOne({ nome: acomodacao });        
+        const { comissao } = await anuncios.findOne({ nome: acomodacao });
 
-        await reservas.create({ nome, telefone, acomodacao, preco, check_in, check_out, hospedes, dias, situacao, comissao: comissao / 100 }); 
+        await reservas.create({ nome, telefone, acomodacao, preco, check_in, check_out, hospedes, dias, situacao, comissao: comissao / 100 });
 
         const query = { check_in: { $gte: new Date(moment().subtract(1, 'month')) } }
 

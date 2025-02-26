@@ -22,3 +22,17 @@ div.total strong {
 }
 
 div.total span {}
+
+@media screen and (max-width:900px) {
+
+    div.total div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    div.total strong {
+        font-size: 0.9em;
+    }
+
+}

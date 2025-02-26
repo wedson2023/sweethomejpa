@@ -7,10 +7,9 @@
         <span>Acomodação</span>
         <select name="acomodacao">
             <option value="">Selecione uma acomodação</option>
-            <option value="Simple Flat super agradável">Simple Flat super agradável</option>
-            <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
-                Bessa</option>
-            <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+            {{#each anuncios}}
+            <option value="{{ nome }}">{{ nome }}</option>
+            {{/each}}
         </select>
     </label>
     <label>
@@ -64,16 +63,15 @@
             </label>
             <label>
                 <span>Valor</span>
-                <input name="valor" placeholder="Ex.: 20" required />
+                <input type="number" name="valor" placeholder="Ex.: 20" required />
             </label>
             <label>
                 <span>Acomodação</span>
                 <select name="acomodacao" required>
                     <option value="">Selecione uma acomodação</option>
-                    <option value="Simple Flat super agradável">Simple Flat super agradável</option>
-                    <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
-                        Bessa</option>
-                    <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+                    {{#each anuncios}}
+                    <option value="{{ nome }}">{{ nome }}</option>
+                    {{/each}}
                 </select>
             </label>
             <label>
@@ -95,7 +93,7 @@
             </tr>
         </thead>
         <tbody>
-            {{#each data.despesas}}
+            {{#each data}}
             <tr>
                 <td title="Clique para deletar a reserva">
                     <span id="{{ _id }}" class="material-icons despesas">delete</span>

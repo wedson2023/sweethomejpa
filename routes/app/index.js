@@ -10,10 +10,6 @@ router.use((req, res, next) => {
     next()
 })
 
-router.get('/', (req, res) => {
-    res.render('login', { layout: false });
-
-});
 router.get('/reservas', reservas.index);
 router.get('/anuncios', anuncios.index);
 router.get('/despesas', despesas.index);

@@ -7,6 +7,8 @@ const reservas = require('../../controllers/api/reservas')
 const anuncios = require('../../controllers/api/anuncios')
 const despesas = require('../../controllers/api/despesas')
 
+router.post('/auth', auth.login);
+
 // middleware that is specific to this router
 router.use(async (req, res, next) => {
 
@@ -17,7 +19,7 @@ router.use(async (req, res, next) => {
 
         if (!token) res.status(401).json({ message: 'Usuário não autorizado.' });
         else {
-            const encrypt = await bcrypt.compare(token, '$2b$10$d8EqgGNK3D8O8wlE6Vou7e0NhhO5dHw5mpYxpaMOxYZq8Y0ucx.oO');
+            const encrypt = await bcrypt.compare('sweethomejpa_2025', token);
             if (!encrypt) res.status(401).json({ message: 'Usuário não autorizado.' });
         }
         
@@ -27,8 +29,7 @@ router.use(async (req, res, next) => {
 
 })
 
-router.post('/auth', auth.login);
-
+router.get('/reservas', reservas.index);
 router.post('/reservas', reservas.store);
 router.put('/reservas/:id', reservas.update);
 router.delete('/reservas/:id', reservas.destroy);

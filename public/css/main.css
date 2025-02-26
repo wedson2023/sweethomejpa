@@ -27,8 +27,8 @@ div.screen {
 div.header {
     width: 100%;
     padding: 10px 15px;
-    border-bottom: solid thin #f1f1f1;   
-    display: flex;         
+    border-bottom: solid thin #f1f1f1;
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -50,9 +50,9 @@ div.menu {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    -webkit-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0, 0, 0);
     padding-bottom: 100px;
-    
+
     position: absolute;
     z-index: 150;
     right: -250px;
@@ -74,7 +74,7 @@ div.menu .nav-header {
     padding-left: 10px;
 }
 
-div.menu .nav-header .material-icons {   
+div.menu .nav-header .material-icons {
     color: red;
     font-size: 20px;
     padding: 5px;
@@ -83,7 +83,7 @@ div.menu .nav-header .material-icons {
     cursor: pointer;
 }
 
-div.menu a {            
+div.menu a {
     color: #333;
     border-bottom: solid thin #333;
     text-decoration: none;
@@ -94,12 +94,20 @@ div.menu a {
     cursor: pointer;
 }
 
-div.menu a:hover {            
+div.menu a:hover {
     background-color: #333;
     color: #fff;
 }
 
-div.menu a .material-icons { 
+div.menu a .material-icons {
     margin-right: 10px;
     font-size: 1.3em;
+}
+
+@media screen and (max-width:900px) {
+
+    * {
+        overflow-y: auto;
+    }
+
 }

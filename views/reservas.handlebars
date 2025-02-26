@@ -9,10 +9,9 @@
         <span>Acomodação</span>
         <select name="acomodacao">
             <option value="">Selecione uma acomodação</option>
-            <option value="Simple Flat super agradável">Simple Flat super agradável</option>
-            <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
-                Bessa</option>
-            <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+            {{#each anuncios}}
+            <option value="{{ nome }}">{{ nome }}</option>
+            {{/each}}
         </select>
     </label>
     <label>
@@ -45,21 +44,20 @@
             </label>
             <label>
                 <span>Telefone</span>
-                <input name="telefone" type="tel" value="(82) 98176 - 1793" placeholder="Ex.: 82 98176 - 1793" />
+                <input name="telefone" required type="tel" value="(82) 98176 - 1793" placeholder="Ex.: 82 98176 - 1793" />
             </label>
             <label>
                 <span>Acomodação</span>
                 <select name="acomodacao" required>
                     <option value="">Selecione uma acomodação</option>
-                    <option value="Simple Flat super agradável">Simple Flat super agradável</option>
-                    <option value="Apartamento amplo proximo a praia do Bessa">Apartamento amplo proximo a praia do
-                        Bessa</option>
-                    <option value="Flat moderno com vista incrível">Flat moderno com vista incrível</option>
+                    {{#each anuncios}}
+                    <option value="{{ nome }}">{{ nome }}</option>
+                    {{/each}}
                 </select>
             </label>
             <label>
                 <span>Valor estádia</span>
-                <input name="preco" type="number" value="1000" required placeholder="Ex.: 1000"/>
+                <input name="preco" type="number" value="1000" required placeholder="Ex.: 1000" />
             </label>
             <label>
                 <span>Check-in</span>
@@ -71,7 +69,7 @@
             </label>
             <label>
                 <span>Hospedes</span>
-                <input name="hospedes" type="number" value="6" required placeholder="Ex.: 6"/>
+                <input name="hospedes" type="number" value="6" required placeholder="Ex.: 6" />
             </label>
             <label>
                 <span>&nbsp;</span>
@@ -105,7 +103,7 @@
                 </td>
                 <td>{{nome}}</td>
                 <td>
-                    <a href="https://wa.me/55{{ telefone }}" target="_blank"
+                    <a href="https://wa.me/55{{telefone }}" target="_blank"
                         title="Clique para acessar o whats app do hospede.">
                         {{telefone}}
                     </a>
@@ -118,7 +116,7 @@
                 <td>{{hospedes}}</td>
                 <td>{{dias}}</td>
                 <td class="{{ situacao }}">{{situacao}}</td>
-                <td id="{{ _id }}" class="{{ limpeza }} limpeza" situacao="{{ limpeza }}"
+                <td id="{{_id }}" class="{{limpeza }} limpeza" situacao="{{limpeza }}"
                     title="Clique para alterar a status de limpeza.">
                     {{limpeza}}</td>
             </tr>

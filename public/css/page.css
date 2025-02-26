@@ -107,35 +107,7 @@ form.pesquisar-anuncios label {
     margin: 5px;
 }
 
-@media screen and (max-width:900px) {
 
-    div.list {
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    table {
-        width: 1336px;
-    }
-
-    form.pesquisar-reservas,
-    form.pesquisar-despesas,
-    form.pesquisar-anuncios {
-        padding: 10px 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    form.pesquisar-reservas label,
-    form.pesquisar-despesas label,
-    form.pesquisar-anuncios label {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        margin: 5px;
-    }
-}
 
 form.pesquisar-reservas input,
 form.pesquisar-reservas select,
@@ -200,4 +172,34 @@ p.message {
     color: #999;
     text-align: center;
     font-size: 0.9em;
+}
+
+@media screen and (max-width:900px) {
+
+    div.list {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 1336px;
+    }
+
+    form.pesquisar-reservas,
+    form.pesquisar-despesas,
+    form.pesquisar-anuncios {
+        padding: 10px 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    form.pesquisar-reservas label,
+    form.pesquisar-despesas label,
+    form.pesquisar-anuncios label {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin: 5px 0;
+    }
 }

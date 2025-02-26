@@ -1,3 +1,7 @@
+const token = localStorage.getItem('token');
+
+if(token) location.href = '/app/reservas'
+
 const screen = document.querySelector('.screen');
 
 const modal = document.querySelector('.modal');
@@ -12,12 +16,12 @@ function fn_open_modal() {
     modal.style.cssText = `
         opacity: 1;
         visibility: visible;
-        top: ${innerWidth <= 900 ? 0 : '50%'};
-        margin-top: -${innerWidth <= 900 ? 0 : (modal.offsetHeight / 2)}px;
+        top: 50%;
+        margin-top: -${modal.offsetHeight / 2}px;
     `
-    const acessar = document.querySelector('.acessar');
+    const acessar = document.querySelector('form');
 
-    // acessar.addEventListener('submit', fn_acessar);
+    acessar.addEventListener('submit', fn_acessar);
 }
 
 function fn_close_modal() {
@@ -34,3 +38,42 @@ close_modal.addEventListener('click', fn_close_modal)
 screen.addEventListener('click', () => {
     fn_close_modal();
 })
+
+async function fn_acessar(e) {
+
+    e.preventDefault();
+
+    let data = {
+        login: document.querySelector('input[name=login]').value,
+        password: document.querySelector('input[name=password').value,
+    }
+
+    try {
+
+        data = await fetch('http://localhost:3000/api/auth', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json;charset=UTF-8' },
+            body: JSON.stringify(data)
+        })
+
+        data = await data.json();
+        
+        if (data.message === 'Usuário não autorizado.'){
+            toast(data.message)
+            return false;
+        }
+        
+        toast(data.message)
+
+        localStorage.setItem('token', data.token);
+
+        setTimeout(() => {
+            location.href = '/app/reservas';
+        }, 2000);
+
+        fn_close_modal();
+
+    } catch (err) {
+        toast(err.message)
+    }
+}

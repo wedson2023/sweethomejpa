@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sweet home JPA</title>
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token) location.href = '/';
+    </script>
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/page.css" />
-    <link rel="stylesheet" href="../css/formulario-cadastrar.css" />
     <link rel="stylesheet" href="../css/modal.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../css/cadastro.css" />
+    <link rel="stylesheet" href="../css/material.icon.css">
     <link rel="icon" type="image/png" href="../images/favicon.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="../js/moment.min.js"></script>
     <script src="../js/html2pdf.bundle.min.js"></script>
 </head>
 
@@ -37,7 +41,7 @@
             <span class="material-icons">bar_chart</span>
             <span>Despesas</span>
         </a>
-        <a href="/app/" class="item-menu">
+        <a href="javascript:void(0)" class="logout item-menu">
             <span class="material-icons">logout</span>
             <span>Sair</span>
         </a>
@@ -48,6 +52,7 @@
     <div class="screen"></div>
     <script src="/js/utils.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/index.js"></script>
 </body>
 
 </html>

@@ -149,9 +149,9 @@ async function fn_cadastro_anuncios(e) {
 
         data = await fetch('http://localhost:3000/api/anuncios', {
             method: 'POST',
-            headers: { 'Content-type': 'application/json;charset=UTF-8' },
             body: JSON.stringify(data),
             headers: {
+                'Content-type': 'application/json;charset=UTF-8',
                 authorization: `Bearer ${token}`,
             }
         })
@@ -255,6 +255,7 @@ function fn_registros_anuncios(data) {
         span = document.createElement('span');
         span.innerText = 'content_copy';
         span.setAttribute('class', 'material-icons');
+        span.setAttribute('url', data[i].url);
         span.classList.add('copy');
 
         td.appendChild(span);
@@ -298,5 +299,19 @@ function fn_registros_anuncios(data) {
             }
         })
     });
+
+    document.querySelectorAll('.copy').forEach(e => {
+        e.addEventListener('click', () => {
+            const value = e.getAttribute('url');
+            console.log(value);
+            let input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.value = value;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            input.remove();
+        })
+    })
 
 }

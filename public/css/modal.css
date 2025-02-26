@@ -49,3 +49,18 @@ div.modal div.content {
     padding: 10px;
     margin: 5px;
 }
+
+@media screen and (max-width:900px) {
+
+    div.modal {
+        margin-left: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+    }
+
+    div.modal form {
+        max-height: 100%;
+    }
+    
+}

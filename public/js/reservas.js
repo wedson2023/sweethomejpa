@@ -1,3 +1,4 @@
+const token = localStorage.getItem('token');
 const message = document.querySelector('p.message');
 let count = document.querySelectorAll('tbody tr').length;
 
@@ -105,7 +106,11 @@ async function fn_pesquisar_reservas(e) {
 
     try {
 
-        data = await fetch(`http://localhost:3000/api/reservas?${query}`)
+        data = await fetch(`http://localhost:3000/api/reservas?${query}`, {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        })
 
         data = await data.json();
 
@@ -134,20 +139,17 @@ async function fn_cadastro_reservas(e) {
 
         if (name)
             data[name] = value;
-
-        if (name === 'check_in') {
-            e.target.elements[i].value = moment().format('YYYY-MM-DD 14:00:00');
-        } else if (name === 'check_out') {
-            e.target.elements[i].value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00'); 
-        } else e.target.elements[i].value = '';
     }
 
     try {
 
         data = await fetch('http://localhost:3000/api/reservas', {
             method: 'POST',
-            headers: { 'Content-type': 'application/json;charset=UTF-8' },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json;charset=UTF-8',
+                authorization: `Bearer ${token}`,
+            }
         })
 
         data = await data.json();
@@ -156,6 +158,15 @@ async function fn_cadastro_reservas(e) {
             toast(data.message)
             return false;
         }
+
+        for (let i = 0; i < e.target.elements.length; i++) {
+            if (name === 'check_in') {
+                e.target.elements[i].value = moment().format('YYYY-MM-DD 14:00:00');
+            } else if (name === 'check_out') {
+                e.target.elements[i].value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00');
+            } else e.target.elements[i].value = '';
+        }
+
 
         fn_registros_reservas(data);
 
@@ -170,7 +181,15 @@ async function fn_remover_reservas(_id) {
 
     try {
 
-        let data = await fetch(`http://localhost:3000/api/reservas/${_id}`, { method: 'DELETE' })
+        let data = await fetch(`http://localhost:3000/api/reservas/${_id}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            }
+        )
+
         data = await data.json();
 
         if (data.message) {
@@ -199,8 +218,11 @@ async function fn_situacao_limpeza(e, _id) {
 
         let data = await fetch(`http://localhost:3000/api/reservas/${_id}`, {
             method: 'PUT',
-            headers: { 'Content-type': 'application/json;charset=UTF-8' },
-            body: JSON.stringify({ limpeza })
+            body: JSON.stringify({ limpeza }),
+            headers: {
+                'Content-type': 'application/json;charset=UTF-8',
+                authorization: `Bearer ${token}`,
+            }
         })
 
         data = await data.json();

@@ -70,8 +70,8 @@ a.open-modal {
 }
 
 div.modal {
-    width: 30% !important;
-    margin-left: -15% !important;
+    width: 30%;
+    margin-left: -15%;
 }
 
 div.modal form {
@@ -79,15 +79,15 @@ div.modal form {
     flex-direction: column;
 }
 
-div.modal input {    
+div.modal input {
     padding: 11px 10px;
     outline: none;
-    border: solid thin #ccc;  
+    border: solid thin #ccc;
     width: 100%;
     margin-bottom: 10px;
 }
 
-div.modal button {      
+div.modal button {
     outline: none;
     background-color: #000;
     border: solid thin #000;
@@ -101,4 +101,12 @@ div.modal button {
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+@media screen and (max-width:900px) {
+
+    div.modal {
+        width: 50%;
+        margin-left: -25%;
+    }
 }

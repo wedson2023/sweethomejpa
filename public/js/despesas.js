@@ -137,9 +137,9 @@ async function fn_cadastro_despesas(e) {
 
         data = await fetch('http://localhost:3000/api/despesas', {
             method: 'POST',
-            headers: { 'Content-type': 'application/json;charset=UTF-8' },
             body: JSON.stringify(data),
             headers: {
+                'Content-type': 'application/json;charset=UTF-8',
                 authorization: `Bearer ${token}`,
             }
         })
@@ -203,7 +203,7 @@ function fn_registros_despesas(data) {
 
     let tr, td, a;
 
-    for (let i in data.data.despesas) {
+    for (let i in data.data) {
 
         tr = document.createElement('tr');
         td = document.createElement('td');
@@ -213,25 +213,25 @@ function fn_registros_despesas(data) {
         span.innerText = 'delete';
         span.setAttribute('class', 'material-icons');
         span.classList.add('despesas');
-        span.setAttribute('id', data.data.despesas[i]._id);
+        span.setAttribute('id', data.data[i]._id);
 
         td.appendChild(span);
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerText = data.data.despesas[i].descricao;
+        td.innerText = data.data[i].descricao;
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerText = data.data.despesas[i].acomodacao;
+        td.innerText = data.data[i].acomodacao;
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerText = data.data.despesas[i].valor;
+        td.innerText = data.data[i].valor;
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerText = data.data.despesas[i].created_at;
+        td.innerText = data.data[i].created_at;
         tr.appendChild(td);
 
         tbody.appendChild(tr);
@@ -281,8 +281,8 @@ document.querySelector('form button[type=button]').addEventListener('click', asy
     const inicio = document.querySelector('input[name=inicio]');
     const fim = document.querySelector('input[name=fim]');
 
-    if (!acomodacao.value || !inicio.value || !fim.value) {
-        toast('Todos os campos precisa está preenchidos.')
+    if (!acomodacao.value) {
+        toast('Selecione o campo a comodação.')
         return false;
     }
 
@@ -304,9 +304,9 @@ document.querySelector('form button[type=button]').addEventListener('click', asy
             return false;
         }
 
-        acomodacao.value = '';
-        inicio.value = moment().startOf('month').format('YYYY-MM-DD 00:00:00');
-        fim.value = moment().add(1, 'days').format('YYYY-MM-DD 23:59:59');
+        // acomodacao.value = '';
+        // inicio.value = moment().startOf('month').format('YYYY-MM-DD 00:00');
+        // fim.value = moment().add(1, 'days').format('YYYY-MM-DD 23:59');
 
         console.log('Inicie o download');
 
@@ -454,29 +454,49 @@ function pdf(data) {
     table.appendChild(thead);
 
     let tbody = document.createElement('tbody');
-    tr = document.createElement('tr');
 
-    for (let i in data.data.despesas) {
+    if (data.data.despesas.length) {
 
-        td = document.createElement('td');
-        td.innerText = data.data.despesas[i].descricao;
-        tr.appendChild(td);
+        for (let i in data.data.despesas) {
 
-        td = document.createElement('td');
-        td.innerText = `R$ ${amount(data.data.despesas[i].valor)}`;
-        tr.appendChild(td);
+            tr = document.createElement('tr');
 
-        td = document.createElement('td');
-        td.innerText = data.data.despesas[i].created_at;
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerText = data.data.despesas[i].descricao;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = `R$ ${amount(data.data.despesas[i].valor)}`;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data.data.despesas[i].created_at;
+            tr.appendChild(td);
+
+            tbody.appendChild(tr);
+
+        }
 
     }
-
-    tbody.appendChild(tr);
 
     table.appendChild(tbody);
 
     despesas.appendChild(table);
+
+    if (!data.data.despesas.length) {
+
+        const p = document.createElement('p');
+        p.innerText = 'Nenhuma despesa encontrada.';
+        p.style.cssText = `
+            margin: 25px auto;
+            color: #999;
+            text-align: center;
+            font-size: 0.9em;
+        `;
+
+        despesas.appendChild(p);
+
+    }
 
     relatorio.appendChild(despesas);
 
@@ -521,41 +541,63 @@ function pdf(data) {
     table.appendChild(thead);
 
     tbody = document.createElement('tbody');
-    tr = document.createElement('tr');
 
-    for (let i in data.data.reservas) {
+    if (data.data.reservas.length) {
 
-        td = document.createElement('td');
-        td.innerText = data.data.reservas[i].nome;
-        tr.appendChild(td);
+        for (let i in data.data.reservas) {
 
-        td = document.createElement('td');
-        td.innerText = data.data.reservas[i].telefone;
-        tr.appendChild(td);
+            tr = document.createElement('tr');
 
-        td = document.createElement('td');
-        td.innerText = `R$ ${amount(data.data.reservas[i].preco)}`;
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerText = data.data.reservas[i].nome;
+            tr.appendChild(td);
 
-        td = document.createElement('td');
-        td.innerText = data.data.reservas[i].check_in;
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerText = data.data.reservas[i].telefone;
+            tr.appendChild(td);
 
-        td = document.createElement('td');
-        td.innerText = data.data.reservas[i].check_out;
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerText = `R$ ${amount(data.data.reservas[i].preco)}`;
+            tr.appendChild(td);
 
-        td = document.createElement('td');
-        td.innerText = data.data.reservas[i].hospedes;
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerText = data.data.reservas[i].check_in;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data.data.reservas[i].check_out;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data.data.reservas[i].hospedes;
+            tr.appendChild(td);
+
+            tbody.appendChild(tr);
+
+        }
 
     }
-
-    tbody.appendChild(tr);
 
     table.appendChild(tbody);
 
     reservas.appendChild(table);
+
+    
+
+    if (!data.data.reservas.length) {
+
+        const p = document.createElement('p');
+        p.innerText = 'Nenhuma reserva encontrada.';
+        p.style.cssText = `
+            margin: 25px auto;
+            color: #999;
+            text-align: center;
+            font-size: 0.9em;
+        `;
+
+        reservas.appendChild(p);
+
+    }
 
     relatorio.appendChild(reservas);
 

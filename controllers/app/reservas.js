@@ -2,17 +2,29 @@ const moment = require('moment')
 
 // models 
 const reservas = require('../../models/reservas');
+const anuncios = require('../../models/anuncios');
 
 exports.index = async (req, res) => {
-
-    console.log(moment().subtract(1, 'days').format('YYYY-MM-DD hh:mm:ss'))
 
     try {
 
         const query = { check_in: { $gte: new Date(moment().subtract(1, 'month')) } }
 
-        const data = await reservas.aggregate([
-            { $match: query },
+        let data = {};
+
+        data.anuncios = await anuncios.aggregate([
+            {
+                $project: {
+                    _id: 1,
+                    nome: 1,
+                }
+            }
+        ]);
+
+        data.data = await reservas.aggregate([
+            {
+                $match: query
+            },
             {
                 $project: {
                     _id: 1,
@@ -31,7 +43,7 @@ exports.index = async (req, res) => {
             { $sort: { situacao: 1 } }
         ]);
 
-        res.render('reservas', { data });
+        res.render('reservas', data);
 
     } catch ({ message }) {
         res.status(400).json({ message })

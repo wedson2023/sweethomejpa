@@ -74,9 +74,9 @@ exports.store = async (req, res) => {
 
     try {
 
-        let { nome, bairro, hospedes, proprietario, pix, comissao } = req.body;
+        let { nome, bairro, hospedes, proprietario, pix, comissao, url } = req.body;
 
-        await anuncios.create({ nome, bairro, hospedes, proprietario, pix, comissao });
+        await anuncios.create({ nome, bairro, hospedes, proprietario, pix, comissao, url });
 
         const data = await anuncios.aggregate([
             { $match: {} },

@@ -32,3 +32,8 @@ screen.addEventListener('click', () => {
     fn_close_menu();
     fn_close_modal();
 })
+
+document.querySelector('.logout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    location.href = '/'
+})

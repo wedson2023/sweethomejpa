@@ -20,6 +20,10 @@ app.use(cors())
 const app_routes = require('./routes/app');
 const api_routes = require('./routes/api');
 
+app.get('/', (req, res) => {
+    res.render('login', { layout: false });
+});
+
 app.use('/app/', app_routes);
 app.use('/api/', api_routes);
 
