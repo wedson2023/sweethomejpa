@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token');
 
-if(token) location.href = '/app/reservas'
+if (token) location.href = '/app/reservas'
 
 const screen = document.querySelector('.screen');
 
@@ -57,19 +57,17 @@ async function fn_acessar(e) {
         })
 
         data = await data.json();
-        
-        if (data.message === 'Usuário não autorizado.'){
+
+        if (data.message === 'Usuário não autorizado.') {
             toast(data.message)
             return false;
         }
-        
+
         toast(data.message)
 
         localStorage.setItem('token', data.token);
 
-        setTimeout(() => {
-            location.href = '/app/reservas';
-        }, 2000);
+        location.href = '/app/reservas';
 
         fn_close_modal();
 

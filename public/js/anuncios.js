@@ -161,6 +161,8 @@ async function fn_cadastro_anuncios(e) {
             return false;
         }
 
+        toast('Cadastro realizado com SUCESSO!')
+
         fn_registros_anuncios(data);
 
         fn_close_modal();
@@ -245,7 +247,7 @@ function fn_registros_anuncios(data) {
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerText = data[i].comissao;
+        td.innerText = `${data[i].comissao}%`;
         tr.appendChild(td);
 
         td = document.createElement('td');

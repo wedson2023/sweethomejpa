@@ -150,6 +150,8 @@ async function fn_cadastro_despesas(e) {
             return false;
         }
 
+        toast('Cadastro realizado com SUCESSO!')
+
         fn_registros_despesas(data);
 
         fn_close_modal();

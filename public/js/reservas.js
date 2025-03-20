@@ -142,6 +142,8 @@ async function fn_cadastro_reservas(e) {
 
     try {
 
+        console.log(`${uri}/api/reservas`);
+
         data = await fetch(`${uri}/api/reservas`, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -157,6 +159,8 @@ async function fn_cadastro_reservas(e) {
             toast(data.message)
             return false;
         }
+
+        toast('Cadastro realizado com SUCESSO!')
 
         for (let i = 0; i < e.target.elements.length; i++) {
             if (name === 'check_in') {

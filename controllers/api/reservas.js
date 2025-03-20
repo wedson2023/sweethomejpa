@@ -104,11 +104,12 @@ exports.store = async (req, res) => {
 
         if (result.length) throw new Error('Já existe uma reserva para esse apartamento para essa data.');
 
-        await despesas.create({ descricao: 'Limpeza', acomodacao, valor: 90 });
-
+        
         const { comissao } = await anuncios.findOne({ nome: acomodacao });
+        
+        const { _id } = await reservas.create({ nome, telefone, acomodacao, plataforma, check_in, check_out, preco, preco_limpeza, hospedes, dias, situacao, comissao: comissao / 100 });
 
-        await reservas.create({ nome, telefone, acomodacao, plataforma, check_in, check_out, preco, preco_limpeza, hospedes, dias, situacao, comissao: comissao / 100 });
+        await despesas.create({ descricao: 'Limpeza', acomodacao, valor: 90, reservas: _id});
 
         const query = { check_in: { $gte: new Date(moment().subtract(1, 'month')) } }
 
@@ -182,6 +183,7 @@ exports.destroy = async (req, res) => {
 
     try {
 
+        await despesas.deleteOne({ reservas: req.params.id })
         await reservas.deleteOne({ _id: req.params.id })
 
         const data = await reservas.aggregate([
