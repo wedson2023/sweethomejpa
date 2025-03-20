@@ -1,5 +1,3 @@
-const token = localStorage.getItem('token');
-
 const message = document.querySelector('p.message');
 let count = document.querySelectorAll('tbody tr').length;
 

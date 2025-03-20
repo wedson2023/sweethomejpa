@@ -2,9 +2,6 @@ const CACHE_NAME = 'v1.0.0';
 
 const STATIC_CACHE_URLS = [
     '/',
-    '/app/reservas',
-    '/app/despesas',
-    '/app/anuncios',
 
     '/images/favicon.png',
     '/images/logo.jpg',

@@ -3,6 +3,7 @@ const moment = require('moment')
 // models 
 const reservas = require('../../models/reservas');
 const anuncios = require('../../models/anuncios');
+const { amount } = require('../../utils');
 
 exports.index = async (req, res) => {
 
@@ -30,10 +31,12 @@ exports.index = async (req, res) => {
                     _id: 1,
                     nome: 1,
                     telefone: 1,
-                    acomodacao: 1,
-                    preco: 1,
+                    acomodacao: 1,                    
+                    plataforma: 1,
                     check_in: { $dateToString: { format: "%d/%m %H:%M", date: "$check_in" } },
                     check_out: { $dateToString: { format: "%d/%m %H:%M", date: "$check_out" } },
+                    preco: 1,
+                    preco_limpeza: 1,
                     hospedes: 1,
                     dias: 1,
                     situacao: 1,
@@ -42,6 +45,12 @@ exports.index = async (req, res) => {
             },
             { $sort: { situacao: 1 } }
         ]);
+
+        data.data = data.data.map(e => {
+            e.preco = amount(e.preco);
+            e.preco_limpeza = amount(e.preco_limpeza);
+            return e;
+        });
 
         res.render('reservas', data);
 

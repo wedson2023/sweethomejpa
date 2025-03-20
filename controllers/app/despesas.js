@@ -46,6 +46,11 @@ exports.index = async (req, res) => {
             { $sort: { acomodacao: 1 } }
         ]);
 
+        data.data = data.data.map(e => {
+            e.valor = amount(e.valor);
+            return e;
+        });
+
         const saidas = await despesas.aggregate([
             {
                 $match: {

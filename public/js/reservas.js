@@ -1,4 +1,3 @@
-const token = localStorage.getItem('token');
 const message = document.querySelector('p.message');
 let count = document.querySelectorAll('tbody tr').length;
 
@@ -268,6 +267,11 @@ function fn_registros_reservas(data) {
         tr.appendChild(td);
 
         td = document.createElement('td');
+        td.setAttribute('class', 'acomodacao');
+        td.innerText = data[i].acomodacao;
+        tr.appendChild(td);
+
+        td = document.createElement('td');
         a.setAttribute('href', `https://wa.me/55${data[i].telefone}`)
         a.setAttribute('target', `_blank`)
         a.setAttribute('title', `Clique para acessar o whats app do hospede.`)
@@ -277,19 +281,19 @@ function fn_registros_reservas(data) {
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerText = data[i].acomodacao;
-        tr.appendChild(td);
-
-        td = document.createElement('td');
-        td.innerText = data[i].preco;
-        tr.appendChild(td);
-
-        td = document.createElement('td');
         td.innerText = data[i].check_in;
         tr.appendChild(td);
 
         td = document.createElement('td');
         td.innerText = data[i].check_out;
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.innerText = parseFloat(data[i].preco || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.innerText = parseFloat(data[i].preco_limpeza || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         tr.appendChild(td);
 
         td = document.createElement('td');

@@ -44,20 +44,34 @@
             </label>
             <label>
                 <span>Telefone</span>
-                <input name="telefone" required type="tel" value="(82) 98176 - 1793" placeholder="Ex.: 82 98176 - 1793" />
+                <input name="telefone" required type="tel" value="(82) 98176 - 1793"
+                    placeholder="Ex.: 82 98176 - 1793" />
             </label>
             <label>
                 <span>Acomodação</span>
                 <select name="acomodacao" required>
-                    <option value="">Selecione uma acomodação</option>
+                    <option value="">Selecione</option>
                     {{#each anuncios}}
                     <option value="{{ nome }}">{{ nome }}</option>
                     {{/each}}
                 </select>
             </label>
             <label>
+                <span>Plataforma</span>
+                <select name="plataforma" required>
+                    <option value="">Selecione</option>
+                    <option value="Airbnb">Airbnb</option>
+                    <option value="Booking">Booking</option>
+                    <option value="Outras">Outras</option>
+                </select>
+            </label>
+            <label>
                 <span>Valor estádia</span>
-                <input name="preco" type="number" value="1000" required placeholder="Ex.: 1000" />
+                <input name="preco" type="number" value="1000" placeholder="Ex.: 1000" required />
+            </label>
+            <label>
+                <span>Valor Limpeza</span>
+                <input type="number" name="preco_limpeza" value="90" placeholder="Ex.: 20" required/>
             </label>
             <label>
                 <span>Check-in</span>
@@ -82,15 +96,16 @@
     <table>
         <thead>
             <tr>
-                <td width="3%"></td>
+                <td width="4%"></td>
                 <td width="12%">NOME</td>
-                <td width="10%">TELEFONE</td>
-                <td width="12%">ACOMODAÇÃO</td>
-                <td width="7%">PREÇO</td>
+                <td width="15%">ACOMODAÇÃO</td>
+                <td width="7%">TELEFONE</td>
                 <td width="7%">CHECK-IN</td>
                 <td width="7%">CHECK-OUT</td>
-                <td width="7%">HOSPEDES</td>
-                <td width="7%">DIAS</td>
+                <td width="6%">PREÇO</td>
+                <td width="6%">LIMPEZA</td>
+                <td width="6%">HOSPEDES</td>
+                <td width="6%">DIAS</td>
                 <td width="12%">SITUAÇÃO</td>
                 <td width="12%">LIMPEZA</td>
             </tr>
@@ -102,17 +117,17 @@
                     <span id="{{ _id }}" class="material-icons reservas">delete</span>
                 </td>
                 <td>{{nome}}</td>
+                <td class="acomodacao">{{acomodacao}}</td>
                 <td>
                     <a href="https://wa.me/55{{telefone }}" target="_blank"
                         title="Clique para acessar o whats app do hospede.">
                         {{telefone}}
                     </a>
                 </td>
-                </td>
-                <td>{{acomodacao}}</td>
-                <td>{{preco}}</td>
                 <td>{{check_in}}</td>
                 <td>{{check_out}}</td>
+                <td>{{preco}}</td>
+                <td>{{preco_limpeza}}</td>
                 <td>{{hospedes}}</td>
                 <td>{{dias}}</td>
                 <td class="{{ situacao }}">{{situacao}}</td>

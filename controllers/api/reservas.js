@@ -3,6 +3,7 @@ const moment = require('moment')
 // models 
 const reservas = require('../../models/reservas');
 const anuncios = require('../../models/anuncios');
+const despesas = require('../../models/despesas');
 
 exports.index = async (req, res) => {
 
@@ -37,9 +38,11 @@ exports.index = async (req, res) => {
                     nome: 1,
                     telefone: 1,
                     acomodacao: 1,
-                    preco: 1,
+                    plataforma: 1,
                     check_in: { $dateToString: { format: "%d/%m %H:%M", date: "$check_in" } },
                     check_out: { $dateToString: { format: "%d/%m %H:%M", date: "$check_out" } },
+                    preco: 1,
+                    preco_limpeza: 1,
                     hospedes: 1,
                     dias: 1,
                     situacao: 1,
@@ -60,7 +63,7 @@ exports.store = async (req, res) => {
 
     try {
 
-        let { nome, telefone, acomodacao, preco, check_in, check_out, hospedes } = req.body;
+        let { nome, telefone, acomodacao, plataforma, check_in, check_out, preco, preco_limpeza, hospedes } = req.body;
 
         telefone = telefone.replace(/[ /() -]/gi, "");
 
@@ -101,9 +104,11 @@ exports.store = async (req, res) => {
 
         if (result.length) throw new Error('Já existe uma reserva para esse apartamento para essa data.');
 
+        await despesas.create({ descricao: 'Limpeza', acomodacao, valor: 90 });
+
         const { comissao } = await anuncios.findOne({ nome: acomodacao });
 
-        await reservas.create({ nome, telefone, acomodacao, preco, check_in, check_out, hospedes, dias, situacao, comissao: comissao / 100 });
+        await reservas.create({ nome, telefone, acomodacao, plataforma, check_in, check_out, preco, preco_limpeza, hospedes, dias, situacao, comissao: comissao / 100 });
 
         const query = { check_in: { $gte: new Date(moment().subtract(1, 'month')) } }
 
@@ -115,9 +120,11 @@ exports.store = async (req, res) => {
                     nome: 1,
                     telefone: 1,
                     acomodacao: 1,
-                    preco: 1,
+                    plataforma: 1,
                     check_in: { $dateToString: { format: "%d/%m %H:%M", date: "$check_in" } },
                     check_out: { $dateToString: { format: "%d/%m %H:%M", date: "$check_out" } },
+                    preco: 1,
+                    preco_limpeza: 1,
                     hospedes: 1,
                     dias: 1,
                     situacao: 1,
@@ -150,9 +157,11 @@ exports.update = async (req, res) => {
                     nome: 1,
                     telefone: 1,
                     acomodacao: 1,
-                    preco: 1,
+                    plataforma: 1,
                     check_in: { $dateToString: { format: "%d/%m %H:%M", date: "$check_in" } },
                     check_out: { $dateToString: { format: "%d/%m %H:%M", date: "$check_out" } },
+                    preco: 1,
+                    preco_limpeza: 1,
                     hospedes: 1,
                     dias: 1,
                     situacao: 1,
@@ -183,9 +192,11 @@ exports.destroy = async (req, res) => {
                     nome: 1,
                     telefone: 1,
                     acomodacao: 1,
-                    preco: 1,
+                    plataforma: 1,
                     check_in: { $dateToString: { format: "%d/%m %H:%M", date: "$check_in" } },
                     check_out: { $dateToString: { format: "%d/%m %H:%M", date: "$check_out" } },
+                    preco: 1,
+                    preco_limpeza: 1,
                     hospedes: 1,
                     dias: 1,
                     situacao: 1,
@@ -215,9 +226,11 @@ exports.situacao = async (req, res) => {
                     nome: 1,
                     telefone: 1,
                     acomodacao: 1,
-                    preco: 1,
+                    plataforma: 1,
                     check_in_formatado: { $dateToString: { format: "%d/%m %H:%M", date: "$check_in" } },
                     check_out_formatado: { $dateToString: { format: "%d/%m %H:%M", date: "$check_out" } },
+                    preco: 1,
+                    preco_limpeza: 1,
                     check_in: 1,
                     check_out: 1,
                     hospedes: 1,
