@@ -1,3 +1,5 @@
+const uri = location.hostname != 'localhost' ? 'https://sweethomejpa.com.br' : 'http://localhost:3000';
+
 const token = localStorage.getItem('token');
 
 if(token) location.href = '/app/reservas'
