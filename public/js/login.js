@@ -50,7 +50,7 @@ async function fn_acessar(e) {
 
     try {
 
-        data = await fetch('http://localhost:3000/api/auth', {
+        data = await fetch(`${uri}/api/auth`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json;charset=UTF-8' },
             body: JSON.stringify(data)

@@ -105,7 +105,7 @@ async function fn_pesquisar_anuncios(e) {
 
     try {
 
-        data = await fetch(`http://localhost:3000/api/anuncios?${query}`, {
+        data = await fetch(`${uri}/api/anuncios?${query}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ async function fn_cadastro_anuncios(e) {
 
     try {
 
-        data = await fetch('http://localhost:3000/api/anuncios', {
+        data = await fetch('${uri}/api/anuncios', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -174,7 +174,7 @@ async function fn_remover_anuncios(_id) {
 
     try {
 
-        let data = await fetch(`http://localhost:3000/api/anuncios/${_id}`, {
+        let data = await fetch(`${uri}/api/anuncios/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${token}`,

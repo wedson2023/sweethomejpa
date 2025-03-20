@@ -105,7 +105,7 @@ async function fn_pesquisar_reservas(e) {
 
     try {
 
-        data = await fetch(`http://localhost:3000/api/reservas?${query}`, {
+        data = await fetch(`${uri}/api/reservas?${query}`, {
             headers: {
                 authorization: `Bearer ${token}`,
             }
@@ -142,7 +142,7 @@ async function fn_cadastro_reservas(e) {
 
     try {
 
-        data = await fetch('http://localhost:3000/api/reservas', {
+        data = await fetch('${uri}/api/reservas', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -180,7 +180,7 @@ async function fn_remover_reservas(_id) {
 
     try {
 
-        let data = await fetch(`http://localhost:3000/api/reservas/${_id}`,
+        let data = await fetch(`${uri}/api/reservas/${_id}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -215,7 +215,7 @@ async function fn_situacao_limpeza(e, _id) {
 
         const limpeza = e.getAttribute('situacao');
 
-        let data = await fetch(`http://localhost:3000/api/reservas/${_id}`, {
+        let data = await fetch(`${uri}/api/reservas/${_id}`, {
             method: 'PUT',
             body: JSON.stringify({ limpeza }),
             headers: {

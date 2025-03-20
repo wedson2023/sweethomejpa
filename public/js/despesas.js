@@ -89,7 +89,7 @@ async function fn_pesquisar_despesas(e) {
 
     try {
 
-        data = await fetch(`http://localhost:3000/api/despesas?${query}`, {
+        data = await fetch(`${uri}/api/despesas?${query}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${token}`,
@@ -134,7 +134,7 @@ async function fn_cadastro_despesas(e) {
 
     try {
 
-        data = await fetch('http://localhost:3000/api/despesas', {
+        data = await fetch('${uri}/api/despesas', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -163,7 +163,7 @@ async function fn_remover_despesas(_id) {
 
     try {
 
-        let data = await fetch(`http://localhost:3000/api/despesas/${_id}`, {
+        let data = await fetch(`${uri}/api/despesas/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${token}`,
@@ -281,7 +281,7 @@ document.querySelector('form button[type=button]').addEventListener('click', asy
     const fim = document.querySelector('input[name=fim]');
 
     if (!acomodacao.value) {
-        toast('Selecione o campo a comodação.')
+        toast('Selecione o campo acomodação.')
         return false;
     }
 
@@ -289,7 +289,7 @@ document.querySelector('form button[type=button]').addEventListener('click', asy
 
     try {
 
-        data = await fetch(`http://localhost:3000/api/download?${query}`, {
+        data = await fetch(`${uri}/api/download?${query}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${token}`,

@@ -1,3 +1,5 @@
+const uri = location.hostname != 'localhost' ? 'https://sweethomejpa.com.br' : 'http://localhost:3000';
+
 const { innerWidth } = window;
 
 const screen = document.querySelector('.screen');
