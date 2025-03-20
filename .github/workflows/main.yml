@@ -24,4 +24,4 @@ jobs:
             cd /home/sweethomejpa/app
             git checkout .
             git pull
-            pm2 restart sweethomejpa
+            /home/sweethomejpa/.nvm/versions/node/v22.14.0/bin/pm2 restart sweethomejpa
