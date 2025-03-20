@@ -145,7 +145,7 @@ async function fn_cadastro_anuncios(e) {
 
     try {
 
-        data = await fetch('${uri}/api/anuncios', {
+        data = await fetch(`${uri}/api/anuncios`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

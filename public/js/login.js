@@ -1,5 +1,3 @@
-const uri = location.hostname != 'localhost' ? 'https://sweethomejpa.com.br' : 'http://localhost:3000';
-
 const token = localStorage.getItem('token');
 
 if(token) location.href = '/app/reservas'
@@ -52,7 +50,7 @@ async function fn_acessar(e) {
 
     try {
 
-        data = await fetch(`${uri}/api/auth`, {
+        data = await fetch(`${location.origin}/api/auth`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json;charset=UTF-8' },
             body: JSON.stringify(data)

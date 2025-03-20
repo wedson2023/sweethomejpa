@@ -134,7 +134,7 @@ async function fn_cadastro_despesas(e) {
 
     try {
 
-        data = await fetch('${uri}/api/despesas', {
+        data = await fetch(`${uri}/api/despesas`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

@@ -4,7 +4,6 @@
     list-style: none;
     box-sizing: border-box;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    overflow: hidden;
 }
 
 
@@ -14,7 +13,6 @@ div.contatos {
     margin: auto;
     flex-direction: row;
     justify-content: center;
-
 }
 
 div.contatos div {
@@ -108,5 +106,15 @@ div.modal button {
     div.modal {
         width: 50%;
         margin-left: -25%;
+    }
+
+    div.contatos {
+        flex-direction: column;
+    }
+
+    div.contatos div{
+        display: flex;
+        justify-content: center;
+        margin: 5px;
     }
 }

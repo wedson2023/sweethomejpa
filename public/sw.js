@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v1.0.0.2';
+const CACHE_NAME = 'v1.0.0.3';
 
 const STATIC_CACHE_URLS = [
     '/',

@@ -1,4 +1,4 @@
-const uri = location.hostname != 'localhost' ? 'https://sweethomejpa.com.br' : 'http://localhost:3000';
+const uri = location.origin;
 
 const { innerWidth } = window;
 

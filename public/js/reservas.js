@@ -142,7 +142,7 @@ async function fn_cadastro_reservas(e) {
 
     try {
 
-        data = await fetch('${uri}/api/reservas', {
+        data = await fetch(`${uri}/api/reservas`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
