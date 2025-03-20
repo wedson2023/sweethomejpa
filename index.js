@@ -2,6 +2,7 @@ const express = require('express')
 const handlebars = require('express-handlebars');
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const path = require('path');
 
 const app = express()
 const port = 3000
@@ -11,7 +12,7 @@ app.use(bodyParser.json())
 
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
-app.set('views', './views');
+app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static('public'))
 
