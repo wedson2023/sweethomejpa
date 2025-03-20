@@ -1,0 +1,29 @@
+{
+  "background_color": "#ffffff",
+  "theme_color": "#222",
+  "description": "SWEETHOMEJPA sistema para gerenciar reservas.",
+  "display": "standalone",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "images/icons/icon-192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/icons/icon-512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "images/icons/icon-513.svg",
+      "sizes": "513x513"
+    }
+  ],
+  "name": "SWEETHOMEJPA",
+  "short_name": "SWEETHOMEJPA",
+  "id": "/",
+  "start_url": "/",
+  "scope": ".",
+  "capture_links": "existing-client-navigate",
+  "link_capturing_preference": "always",
+  "shortcuts": []
+}
