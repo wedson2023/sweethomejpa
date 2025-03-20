@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /app
+            cd /home/sweethomejpa/app
             git checkout .
             git pull
             pm2 restart sweethomejpa
