@@ -366,6 +366,7 @@ exports.download = async (req, res) => {
                 $project: {
                     _id: 1,
                     nome: 1,
+                    plataforma: 1,
                     telefone: 1,
                     acomodacao: 1,
                     preco: 1,

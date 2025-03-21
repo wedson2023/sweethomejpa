@@ -35,4 +35,8 @@ div.total span {}
         font-size: 0.9em;
     }
 
+    div.total span {
+        font-size: 0.8em;
+    }
+
 }

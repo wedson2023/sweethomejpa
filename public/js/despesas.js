@@ -305,12 +305,6 @@ document.querySelector('form button[type=button]').addEventListener('click', asy
             return false;
         }
 
-        // acomodacao.value = '';
-        // inicio.value = moment().startOf('month').format('YYYY-MM-DD 00:00');
-        // fim.value = moment().add(1, 'days').format('YYYY-MM-DD 23:59');
-
-        console.log('Inicie o download');
-
         pdf(data);
 
     } catch (err) {
@@ -520,12 +514,13 @@ function pdf(data) {
     tr = document.createElement('tr');
 
     title = [
-        { width: 25, name: 'NOME' },
-        { width: 15, name: 'TELEFONE' },
-        { width: 15, name: 'PREÇO' },
-        { width: 15, name: 'CHECK-IN' },
-        { width: 15, name: 'CHECK-OUT' },
-        { width: 15, name: 'HOSPEDES' },
+        { width: 20, name: 'NOME' },
+        { width: 13.33, name: 'PLATAFORMA' },
+        { width: 13.33, name: 'TELEFONE' },
+        { width: 13.33, name: 'PREÇO' },
+        { width: 13.33, name: 'CHECK-IN' },
+        { width: 13.33, name: 'CHECK-OUT' },
+        { width: 13.33, name: 'HOSPEDES' },
     ];
 
     td;
@@ -551,6 +546,10 @@ function pdf(data) {
 
             td = document.createElement('td');
             td.innerText = data.data.reservas[i].nome;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerText = data.data.reservas[i].plataforma;
             tr.appendChild(td);
 
             td = document.createElement('td');
