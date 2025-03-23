@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../css/reservas.css" />
+
 <button class="open-modal">Nova reserva</button>
 
 <form class="pesquisar-reservas">
@@ -15,12 +17,12 @@
         </select>
     </label>
     <label>
-        <span>Check-in</span>
-        <input name="start" type="datetime-local" required />
+        <span>Inicío check-in</span>
+        <input name="inicio" type="datetime-local" required />
     </label>
     <label>
-        <span>Check-out</span>
-        <input name="end" type="datetime-local" required />
+        <span>Fim check-in</span>
+        <input name="fim" type="datetime-local" required />
     </label>
     <label title="Clique para pesquisar suas reservas.">
         <span>&nbsp;</span>
@@ -130,7 +132,7 @@
                 <td>{{hospedes}}</td>
                 <td>{{dias}}</td>
                 <td class="{{ situacao }}">{{situacao}}</td>
-                <td id="{{_id }}" class="{{limpeza }} limpeza" situacao="{{limpeza }}"
+                <td id="{{_id}}" class="{{limpeza}} limpeza" situacao="{{limpeza }}"
                     title="Clique para alterar a status de limpeza.">
                     {{limpeza}}</td>
             </tr>

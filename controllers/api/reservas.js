@@ -16,7 +16,7 @@ exports.index = async (req, res) => {
                 { check_in: { $gte: new Date(moment().subtract(1, 'month')) } },
                 {
                     check_in: {
-                        $gte: new Date(req.query.start), $lte: new Date(req.query.end)
+                        $gte: new Date(req.query.inicio), $lte: new Date(req.query.fim)
                     }
                 }
             ]
@@ -49,7 +49,7 @@ exports.index = async (req, res) => {
                     limpeza: 1,
                 }
             },
-            { $sort: { situacao: 1 } }
+            { $sort: { situacao: 1, check_in: -1 } }
         ]);
 
         res.json(data);
@@ -65,7 +65,7 @@ exports.store = async (req, res) => {
 
         let { nome, telefone, acomodacao, plataforma, check_in, check_out, preco, preco_limpeza, hospedes } = req.body;
 
-        telefone = telefone.replace(/[ /() -]/gi, "");
+        telefone = telefone.replace(/\D/g, '');
 
         check_out = moment(check_out)
 
@@ -77,15 +77,7 @@ exports.store = async (req, res) => {
 
         if (check_in >= check_out) throw new Error('A data de check-in não pode ser maior ou igual ao check-out.');
 
-        let situacao;
-
-        if (check_out <= now) situacao = 'Estádia encerrada';
-        else if (check_in <= now) situacao = 'Estádia em andamento';
-        else {
-            situacao = moment(check_in).diff(moment(), 'days') + ' dia(s)';
-        }
-
-        const result = await reservas.aggregate([
+        let result = await reservas.aggregate([
             {
                 $match: {
                     $and: [
@@ -104,12 +96,46 @@ exports.store = async (req, res) => {
 
         if (result.length) throw new Error('Já existe uma reserva para esse apartamento para essa data.');
 
-        
-        const { comissao } = await anuncios.findOne({ nome: acomodacao });
-        
-        const { _id } = await reservas.create({ nome, telefone, acomodacao, plataforma, check_in, check_out, preco, preco_limpeza, hospedes, dias, situacao, comissao: comissao / 100 });
+        result = await reservas.aggregate([
+            {
+                $match: {
+                    $and: [
+                        { acomodacao: { $eq: acomodacao } },
+                        { $or: [{ situacao: 'Estádia encerrada' }, { situacao: 'Estádia em andamento' }] }
+                    ]
+                }
+            },
+            { $sort: { check_out: -1 } },
+            { $limit: 1 },
+            {
+                $project: {
+                    _id: 1,
+                    nome: 1,
+                    acomodacao: 1,
+                    situacao: 1,
+                    limpeza: 1,
+                }
+            },
+        ]);
 
-        await despesas.create({ descricao: 'Limpeza', acomodacao, valor: 90, reservas: _id});
+        let situacao, limpeza;
+
+        if (result.length) limpeza = result[0].limpeza;
+
+        if (check_out <= now) situacao = 'Estádia encerrada';
+        else if (check_in <= now) {
+            limpeza = 'Pendente';
+            situacao = 'Estádia em andamento';
+        }
+        else {
+            situacao = moment(check_in).diff(moment(), 'days') + ' dia(s)';
+        }
+
+        const { comissao } = await anuncios.findOne({ nome: acomodacao });
+
+        const { _id } = await reservas.create({ nome, telefone, acomodacao, plataforma, check_in, check_out, preco, preco_limpeza, hospedes, dias, situacao, comissao: comissao / 100, limpeza });
+
+        await despesas.create({ descricao: 'Limpeza', acomodacao, valor: 90, reservas: _id });
 
         const query = { check_in: { $gte: new Date(moment().subtract(1, 'month')) } }
 
@@ -132,7 +158,7 @@ exports.store = async (req, res) => {
                     limpeza: 1,
                 }
             },
-            { $sort: { situacao: 1 } }
+            { $sort: { situacao: 1, check_in: -1 } }
         ]);
 
         res.json(data)
@@ -144,11 +170,16 @@ exports.store = async (req, res) => {
 }
 
 exports.update = async (req, res) => {
+
     try {
 
-        const limpeza = req.body.limpeza === 'Feita' ? 'Pendente' : 'Feita';
+        const { acomodacao, limpeza, situacao, check_in } = await reservas.findOne({ _id: req.params.id })
 
-        await reservas.updateOne({ _id: req.params.id }, { limpeza })
+        if (situacao != 'Estádia encerrada' && situacao != 'Estádia em andamento') throw new Error('Só é possível alterar o status de limpeza quando a estádia está encerrada ou em andamento.');
+
+        await reservas.updateOne({ _id: req.params.id }, { limpeza: (limpeza === 'Feita' ? 'Pendente' : 'Feita') })
+
+        await reservas.updateMany({ check_in: { $gte: check_in }, acomodacao, situacao: { $ne: 'Estádia em andamento' }, _id: { $ne: req.params.id } }, { limpeza: (limpeza === 'Feita' ? 'Pendente' : 'Feita') })
 
         const data = await reservas.aggregate([
             { $match: {} },
@@ -169,7 +200,7 @@ exports.update = async (req, res) => {
                     limpeza: 1,
                 }
             },
-            { $sort: { situacao: 1 } }
+            { $sort: { situacao: 1, check_in: -1 } }
         ]);
 
         res.json(data)
@@ -205,7 +236,7 @@ exports.destroy = async (req, res) => {
                     limpeza: 1,
                 }
             },
-            { $sort: { situacao: 1 } }
+            { $sort: { situacao: 1, check_in: -1 } }
         ]);
 
         res.json(data)
@@ -240,7 +271,8 @@ exports.situacao = async (req, res) => {
                     situacao: 1,
                     limpeza: 1,
                 }
-            }
+            },
+            { $sort: { situacao: 1, check_in: -1 } }
         ]);
 
         for (let i in data) {
@@ -251,9 +283,13 @@ exports.situacao = async (req, res) => {
 
             let object;
 
-            if (check_out <= now) object = { situacao: 'Estádia encerrada' };
-            else if (check_in <= now) object = { situacao: 'Estádia em andamento' };
-            else {
+            if (check_out <= now) {
+                object = { situacao: 'Estádia encerrada' };
+            }
+            else if (check_in <= now) {
+                object = { situacao: 'Estádia em andamento', limpeza: 'Pendente' };
+                await reservas.updateMany({ check_in: { $gt: data[i].check_in }, acomodacao: data[i].acomodacao }, { limpeza: 'Pendente' })
+            } else {
                 object = { situacao: moment(data[i].check_in).diff(moment(), 'days') + ' dias' };
             }
 

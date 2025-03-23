@@ -8,6 +8,7 @@ const anuncios = require('../../controllers/api/anuncios')
 const despesas = require('../../controllers/api/despesas')
 
 router.post('/auth', auth.login);
+router.post('/situacao', reservas.situacao);
 
 // middleware that is specific to this router
 router.use(async (req, res, next) => {
@@ -33,7 +34,6 @@ router.get('/reservas', reservas.index);
 router.post('/reservas', reservas.store);
 router.put('/reservas/:id', reservas.update);
 router.delete('/reservas/:id', reservas.destroy);
-router.post('/situacao', reservas.situacao);
 
 router.get('/anuncios', anuncios.index);
 router.post('/anuncios', anuncios.store);

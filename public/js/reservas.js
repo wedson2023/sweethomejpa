@@ -7,11 +7,11 @@ if (!count) {
     `;
 }
 
-let date = document.querySelector('input[name=start]');
-date.value = moment().subtract(1, 'month').format('YYYY-MM-DD 14:00:00')
+let date = document.querySelector('input[name=inicio]');
+date.value = moment().format('YYYY-MM-DD 00:00')
 
-date = document.querySelector('input[name=end]');
-date.value = moment().add(1, 'year').format('YYYY-MM-DD 12:00:00')
+date = document.querySelector('input[name=fim]');
+date.value = moment().add(1, 'days').format('YYYY-MM-DD 00:00')
 
 function fn_open_modal() {
 

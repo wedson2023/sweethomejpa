@@ -1,0 +1,24 @@
+
+td.Pendente {
+    background-color: #ffc000;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+td.Feita {
+    background-color: #00b050;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+td.Estádia.em.andamento {
+    background-color: #00b050;
+    color: #fff;
+}
+
+td.Estádia.encerrada {
+    background-color: #ff0000;
+    color: #fff;
+}

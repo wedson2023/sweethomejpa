@@ -43,7 +43,7 @@ exports.index = async (req, res) => {
                     limpeza: 1,
                 }
             },
-            { $sort: { situacao: 1 } }
+            { $sort: { situacao: 1, check_in: -1 } }
         ]);
 
         data.data = data.data.map(e => {
