@@ -18,7 +18,8 @@ exports.index = async (req, res) => {
                     comissao: 1,
                     url: 1
                 }
-            }
+            },
+            { $sort: { nome: 1 } }
         ]);
 
         res.render('anuncios', { data });

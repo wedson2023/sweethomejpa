@@ -22,3 +22,9 @@ td.Estádia.encerrada {
     background-color: #ff0000;
     color: #fff;
 }
+
+div.lista-reservas {
+    height: calc(100vh - 290px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}

@@ -38,6 +38,8 @@ router.delete('/reservas/:id', reservas.destroy);
 router.get('/anuncios', anuncios.index);
 router.post('/anuncios', anuncios.store);
 router.delete('/anuncios/:id', anuncios.destroy);
+router.get('/anuncios/:id', anuncios.show);
+router.put('/anuncios/:id', anuncios.update);
 
 router.get('/despesas', despesas.index);
 router.post('/despesas', despesas.store);

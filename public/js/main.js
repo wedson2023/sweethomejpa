@@ -25,7 +25,7 @@ function fn_close_menu() {
 }
 
 open_menu.addEventListener('click', fn_open_menu)
-open_modal.addEventListener('click', fn_open_modal)
+open_modal.addEventListener('click', () => fn_open_modal(null))
 
 close_menu.addEventListener('click', fn_close_menu)
 close_modal.addEventListener('click', fn_close_modal)

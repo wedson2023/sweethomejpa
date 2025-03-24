@@ -1,4 +1,5 @@
 const moment = require('moment')
+const mongoose = require('mongoose');
 
 // models 
 const anuncios = require('../../models/anuncios');
@@ -103,11 +104,60 @@ exports.store = async (req, res) => {
 
 }
 
+exports.show = async (req, res) => {
+
+    try {
+
+        const data = await anuncios.findOne({ _id: req.params.id });
+
+        res.json(data);
+
+    } catch ({ message }) {
+        res.status(400).json({ message })
+    }
+}
+
 exports.update = async (req, res) => {
 
+    try {
+
+        let { nome, bairro, hospedes, proprietario, pix, comissao, url } = req.body;
+
+        let data = await anuncios.findOne({ _id: req.params.id });
+
+        await reservas.updateMany({ acomodacao: data.nome }, { acomodacao: nome });
+
+        await anuncios.updateOne({ _id: req.params.id }, { nome, bairro, hospedes, proprietario, pix, comissao, url });
+
+        data = await anuncios.aggregate([
+            { $match: {} },
+            {
+                $project: {
+                    _id: 1,
+                    nome: 1,
+                    bairro: 1,
+                    hospedes: 1,
+                    proprietario: 1,
+                    pix: 1,
+                    comissao: 1,
+                    url: 1,
+                }
+            },
+            { $sort: { nome: 1 } }
+        ]);
+
+        res.json(data)
+
+    } catch ({ message }) {
+        res.status(400).json({ message })
+    }
 }
 
 exports.destroy = async (req, res) => {
+
+    res.json({ message: 'Em manutenção' })
+
+    return false;
 
     try {
 

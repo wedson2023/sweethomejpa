@@ -31,13 +31,6 @@ div.title {
     border-right: solid 1px #333;
 }
 
-div.list {
-    height: calc(100vh - 290px);
-    overflow-y: auto;
-    overflow-x: hidden;
-
-}
-
 table {
     width: 100%;
     border: solid thin #333;

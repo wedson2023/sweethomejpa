@@ -13,6 +13,8 @@
             <option value="Bancários">Bancários</option>
             <option value="Bessa">Bessa</option>
             <option value="Cabo Branco">Cabo Branco</option>
+            <option value="Camboinha">Camboinha</option>
+            <option value="Intermares">Intermares</option>
             <option value="Jardim Oceania">Jardim Oceania</option>
             <option value="Manaira">Manaira</option>
             <option value="Portal do Sol">Portal do Sol</option>
@@ -55,6 +57,8 @@
                     <option value="Bancários">Bancários</option>
                     <option value="Bessa">Bessa</option>
                     <option value="Cabo Branco">Cabo Branco</option>
+                    <option value="Camboinha">Camboinha</option>
+                    <option value="Intermares">Intermares</option>
                     <option value="Jardim Oceania">Jardim Oceania</option>
                     <option value="Manaira">Manaira</option>
                     <option value="Portal do Sol">Portal do Sol</option>
@@ -85,6 +89,7 @@
                 <span>&nbsp;</span>
                 <button>Cadastrar</button>
             </label>
+            <input name="_id" type="hidden" value="" />
         </form>
     </div>
 </div>
@@ -106,7 +111,7 @@
             {{#each data}}
             <tr>
                 <td title="Clique para deletar a reserva">
-                    <span id="{{ _id }}" class="material-icons anuncios">delete</span>
+                    <span id="{{ _id }}" class="material-icons anuncios">edit</span>
                 </td>
                 <td>{{nome}}</td>
                 <td>{{bairro}}</td>

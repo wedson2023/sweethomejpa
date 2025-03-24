@@ -2,7 +2,11 @@ const mongoose = require('../connect');
 
 const schema = mongoose.Schema(
     {
-        nome: String,
+        nome: {
+            type: String,
+            index: true,
+            unique: true
+        },
         bairro: String,
         hospedes: String,
         proprietario: String,

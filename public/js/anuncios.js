@@ -13,7 +13,7 @@ date.value = moment().format('YYYY-MM-DD 14:00:00')
 date = document.querySelector('input[name=check_out]');
 date.value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00')
 
-function fn_open_modal() {
+async function fn_open_modal(_id) {
 
     screen.style.opacity = 1;
     screen.style.visibility = 'visible';
@@ -27,13 +27,42 @@ function fn_open_modal() {
 
     const cadastro_anuncios = document.querySelector('.cadastro-anuncios');
 
+    if (_id) {
+
+        data = await fetch(`${uri}/api/anuncios/${_id}`, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        })
+
+        data = await data.json();
+
+        cadastro_anuncios.querySelectorAll('input').forEach(e => {
+            e.value = data[e.getAttribute('name')];
+        });
+
+        cadastro_anuncios.querySelectorAll('select').forEach(e => {
+            e.value = data[e.getAttribute('name')];
+        });
+
+        document.querySelector('input[type=hidden]').value = _id;
+
+    } else {
+
+        cadastro_anuncios.querySelectorAll('input').forEach(e => {
+            e.value = '';
+        });
+
+        cadastro_anuncios.querySelectorAll('select').forEach(e => {
+            e.value = '';
+        });
+
+        document.querySelector('input[type=hidden]').value = '';
+
+    }
+
     cadastro_anuncios?.addEventListener('submit', fn_cadastro_anuncios);
-
-    let date = document.querySelector('input[name=check_in]');
-    date.value = moment().format('YYYY-MM-DD 14:00:00')
-
-    date = document.querySelector('input[name=check_out]');
-    date.value = moment().add(1, 'days').format('YYYY-MM-DD 12:00:00')
 }
 
 const pesquisar_anuncios = document.querySelector('.pesquisar-anuncios');
@@ -50,26 +79,38 @@ function fn_close_modal() {
 
 let loading = {};
 
+// document.querySelectorAll('td span.anuncios').forEach(e => {
+
+//     e.addEventListener('click', () => {
+
+//         const _id = e.getAttribute('id');
+
+//         loading[_id] = false;
+
+//         if (!loading[_id]) {
+
+//             const con = confirm('Tem certeza que deseja deletar esse registro?');
+
+//             if (con) {
+//                 loading[_id] = true
+//                 fn_remover_anuncios(_id);
+//                 loading[_id] = false
+
+//             }
+
+//         }
+//     })
+// });
+
+
+
 document.querySelectorAll('td span.anuncios').forEach(e => {
 
     e.addEventListener('click', () => {
 
         const _id = e.getAttribute('id');
+        fn_open_modal(_id);
 
-        loading[_id] = false;
-
-        if (!loading[_id]) {
-
-            const con = confirm('Tem certeza que deseja deletar esse registro?');
-
-            if (con) {
-                loading[_id] = true
-                fn_remover_anuncios(_id);
-                loading[_id] = false
-
-            }
-
-        }
     })
 });
 
@@ -137,22 +178,39 @@ async function fn_cadastro_anuncios(e) {
         let name = e.target.elements[i].name;
         let value = e.target.elements[i].value;
 
-        if (name)
-            data[name] = value;
+        if (name && name != '_id') data[name] = value;
 
-        e.target.elements[i].value = '';
+        if (name != '_id')
+            e.target.elements[i].value = '';
     }
 
     try {
 
-        data = await fetch(`${uri}/api/anuncios`, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-type': 'application/json;charset=UTF-8',
-                authorization: `Bearer ${token}`,
-            }
-        })
+        const _id = document.querySelector('input[type=hidden]').value;
+
+        if (_id) {
+
+            data = await fetch(`${uri}/api/anuncios/${_id}`, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-type': 'application/json;charset=UTF-8',
+                    authorization: `Bearer ${token}`,
+                }
+            })
+
+        } else {
+
+            data = await fetch(`${uri}/api/anuncios`, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-type': 'application/json;charset=UTF-8',
+                    authorization: `Bearer ${token}`,
+                }
+            })
+
+        }
 
         data = await data.json();
 

@@ -23,6 +23,12 @@ div.total strong {
 
 div.total span {}
 
+div.lista-despesas {
+    height: calc(100vh - 226px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 @media screen and (max-width:900px) {
 
     div.total div {
