@@ -24,7 +24,7 @@ div.total strong {
 div.total span {}
 
 div.lista-despesas {
-    height: calc(100vh - 226px);
+    height: calc(100vh - 350px);
     overflow-y: auto;
     overflow-x: hidden;
 }
