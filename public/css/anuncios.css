@@ -1,0 +1,4 @@
+div.lista-anuncios {
+    height: calc(100vh - 290px);
+    overflow: auto;
+}

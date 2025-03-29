@@ -25,6 +25,5 @@ td.Estádia.encerrada {
 
 div.lista-reservas {
     height: calc(100vh - 290px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
 }
